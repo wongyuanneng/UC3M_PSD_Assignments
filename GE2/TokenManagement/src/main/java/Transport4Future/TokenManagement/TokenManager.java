@@ -16,46 +16,51 @@ import javax.json.JsonObject;
 
 public class TokenManager {
 
-	public TokenRequest readTokenRequestFromJSON(String path) throws TokenManagementException {
-		TokenRequest req = null;
+  /**
+ * @param path some path
+ * @return something?
+ * @throws TokenManagementException check exception
+ */
+  public TokenRequest readTokenRequestFromJSON(String path) throws TokenManagementException {
+    TokenRequest req = null;
 
-		String fileContents = "";
+    String fileContents = "";
 
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader(path));
-		} catch (FileNotFoundException e) {
-			throw new TokenManagementException("Error: input file not found.");
-		}
-		String line;
-		try {
-			while ((line = reader.readLine()) != null) {
-				fileContents += line;
-			}
-		} catch (IOException e) {
-			throw new TokenManagementException("Error: input file could not be accessed.");
-		}
-		try {
-			reader.close();
-		} catch (IOException e) {
-			throw new TokenManagementException("Error: input file could not be closed.");
-		}
+    BufferedReader reader;
+    try {
+      reader = new BufferedReader(new FileReader(path));
+    } catch (FileNotFoundException e) {
+      throw new TokenManagementException("Error: input file not found.");
+    }
+    String line;
+    try {
+      while ((line = reader.readLine()) != null) {
+        fileContents += line;
+      }
+    } catch (IOException e) {
+      throw new TokenManagementException("Error: input file could not be accessed.");
+    }
+    try {
+      reader.close();
+    } catch (IOException e) {
+      throw new TokenManagementException("Error: input file could not be closed.");
+    }
 
-		JsonObject jsonLicense = Json.createReader(new StringReader(fileContents)).readObject();
+    JsonObject jsonLicense = Json.createReader(new StringReader(fileContents)).readObject();
 
-		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+    DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
 
-		try {
-			String deviceName = jsonLicense.getString("Device Name");
-			Date requestDate = df.parse(jsonLicense.getString("Request Date"));
-			String serialNumber = jsonLicense.getString("Serial Number");
-			String macAddress = jsonLicense.getString("MAC Address");
+    try {
+      String deviceName = jsonLicense.getString("Device Name");
+      Date requestDate = df.parse(jsonLicense.getString("Request Date"));
+      String serialNumber = jsonLicense.getString("Serial Number");
+      String macAddress = jsonLicense.getString("MAC Address");
 			
-			req = new TokenRequest(deviceName, requestDate, serialNumber, macAddress);
-		} catch (ParseException pe) {
-			throw new TokenManagementException("Error: invalid input data in JSON structure.");
-		}
+      req = new TokenRequest(deviceName, requestDate, serialNumber, macAddress);
+    } catch (ParseException pe) {
+      throw new TokenManagementException("Error: invalid input data in JSON structure.");
+    }
 
-		return req;
-	}
+    return req;
+  }
 }

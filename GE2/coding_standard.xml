@@ -151,21 +151,27 @@ Checkstyle configuration that checks the Google coding conventions from Google J
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="PackageName">
+      <property name="severity" value="ignore"/>
       <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
       <message key="name.invalidPattern" value="Package name ''{0}'' must match pattern ''{1}''."/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="TypeName">
       <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF"/>
       <message key="name.invalidPattern" value="Type name ''{0}'' must match pattern ''{1}''."/>
     </module>
     <module name="MemberName">
+      <property name="severity" value="ignore"/>
       <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
       <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''."/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="ParameterName">
+      <property name="severity" value="ignore"/>
       <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9_]*)?$"/>
       <property name="accessModifiers" value="public"/>
       <message key="name.invalidPattern" value="Parameter name ''{0}'' must match pattern ''{1}''."/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="LambdaParameterName">
       <property name="severity" value="ignore"/>
@@ -335,6 +341,7 @@ Checkstyle configuration that checks the Google coding conventions from Google J
     <module name="DeclarationOrder"/>
     <module name="InnerAssignment"/>
     <module name="RequireThis"/>
+    <module name="ConstantName"/>
   </module>
   <module name="BeforeExecutionExclusionFileFilter">
     <property name="fileNamePattern" value="module\-info\.java$"/>

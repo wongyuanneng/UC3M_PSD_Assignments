@@ -4,21 +4,27 @@ import java.util.Date;
 
 public class TokenRequest {
 	
-	private String deviceName;
-	private Date requestDate;
-	private String serialNumber;
-	private String macAddress;
+  private String deviceName;
+  private Date requestDate;
+  private String serialNumber;
+  private String macAddress;
+  
+  /**
+ * @param deviceName name of device
+ * @param creationDate date of creation
+ * @param serialNumber sno
+ * @param macAddress MAC address
+ */
+  public TokenRequest(String deviceName, Date creationDate, String serialNumber, String macAddress) {
+    this.deviceName = deviceName;
+    this.requestDate = creationDate;
+    this.serialNumber = serialNumber;
+    this.macAddress = macAddress;
+  }
 	
-	public TokenRequest(String deviceName, Date creationDate, String serialNumber, String macAddress) {
-		this.deviceName = deviceName;
-		this.requestDate = creationDate;
-		this.serialNumber = serialNumber;
-		this.macAddress = macAddress;
-	}
-	
-	@Override
-	public String toString() {
-		return "TokenRequest [\\n\\Device Name=" + this.deviceName + ",\n\t\\Request Date=" + this.requestDate + ",\n\t\\Serial Number="
+  @Override
+  public String toString() {
+    return "TokenRequest [\\n\\Device Name=" + this.deviceName + ",\n\t\\Request Date=" + this.requestDate + ",\n\t\\Serial Number="
 				+ this.serialNumber + ",\n\t\\MAC Address=" + this.macAddress + "\n]";
-	}
+  }
 }
