@@ -32,7 +32,7 @@ public class AppTest
 	*/
 	public void CP_RF1_02()
 	{
-		String filePath = "resources/CP-RF1-01.json";
+		String filePath = "src/resources/CP-RF1-01-no.json";
 		TokenManager tm = new TokenManager();
 		try {
 			String res = tm.TokenRequestGeneration(filePath);
@@ -45,14 +45,14 @@ public class AppTest
 	}
 	
 	@Test
-	/* Test case: TM_RF_01_I1
+	/* Test case: TM_RF_01_I1 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
 	* Expected value: invalid input data in JSON structure
 	*/
 	public void TM_RF_01_I1()
 	{
-		String filePath = "resources/CP-RF1-01.json";
+		String filePath = "src/resources/CP-RF1-02.json";
 		TokenManager tm = new TokenManager();
 		try {
 			String res = tm.TokenRequestGeneration(filePath);
@@ -67,14 +67,15 @@ public class AppTest
 	/* Test case: TM_RF_01_P1
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
-	* Expected value: invalid input data in JSON structure
+	* Expected value: incorrect data received
 	*/
 	public void TM_RF_01_P1()
 	{
 		String filePath = "resources/CP-RF1-01.json";
 		TokenManager tm = new TokenManager();
 		try {
-			String res = tm.TokenRequestGeneration(filePath);
+			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
+			tm.validateAll(req);
 			Assertions.fail("A invalid input data in JSON structure exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
@@ -86,18 +87,21 @@ public class AppTest
 	/* Test case: TM_RF_01_P2
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
-	* Expected value: invalid input data in JSON structure
+	* Expected value: correct data received
 	*/
 	public void TM_RF_01_P2()
 	{
-		String filePath = "resources/CP-RF1-01.json";
+		String filePath = "resources/CP-RF1-01_P2.json";
 		TokenManager tm = new TokenManager();
 		try {
+			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
+			tm.validateAll(req);
 			String res = tm.TokenRequestGeneration(filePath);
-			Assertions.fail("A invalid input data in JSON structure exception was expected.");
+			if (res.isEmpty())
+				Assertions.fail("A generated String value was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
+			Assertions.assertEquals(e.message, "?");
 		}
 	}
 	
