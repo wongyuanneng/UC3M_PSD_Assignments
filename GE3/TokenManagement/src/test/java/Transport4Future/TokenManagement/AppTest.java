@@ -52,7 +52,7 @@ public class AppTest
 	*/
 	public void TM_RF_01_I1()
 	{
-		String filePath = "src/resources/CP-RF1-02.json";
+		String filePath = "src/resources/CP-RF1-TM-RF-01-I1.json";
 		TokenManager tm = new TokenManager();
 		try {
 			String res = tm.TokenRequestGeneration(filePath);
@@ -206,26 +206,48 @@ public class AppTest
 	}
 	
 	@Test
-	/* Test case: TM_RF_01_O1 - DONE
+	/* Test case: TM_RF_01_O1_01 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
 	* Expected value: string value corresponding to the generated Token Request
 	*/
-	public void TM_RF_01_O1()
+	public void TM_RF_01_O1_01()
 	{
 		String filePath = "src/resources/CP-RF1-01.json";
 		TokenManager tm = new TokenManager();
 		try {
 			String res = tm.TokenRequestGeneration(filePath);
+			tm.tokenRequestTester(res, "437af2f417fb67604686f7df3e9ca4bc");
 			System.out.println(res);
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
+			Assertions.fail("An exception was not expected.");
 		}
 	}
 	
 	@Test
-	/* Test case: TM_RF_01_O2_01
+	/* Test case: TM_RF_01_O1_02 - DONE
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: string value does no correspond to the generated Token Request
+	*/
+	public void TM_RF_01_O1_02()
+	{
+		String filePath = "src/resources/CP-RF1-01.json";
+		TokenManager tm = new TokenManager();
+		try {
+			String res = tm.TokenRequestGeneration(filePath);
+			tm.tokenRequestTester(res, "437af2f417fb67604686f7df3e9ca4bd");
+			
+			Assertions.fail("A generated string value does not correspond to expected string value of the TokenRequest exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: generated string value does not correspond to expected string value of the TokenRequest.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_01_O2_01 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
 	* Expected value: input data file not found
@@ -244,7 +266,7 @@ public class AppTest
 	}
 	
 	@Test
-	/* Test case: TM_RF_01_O2_02
+	/* Test case: TM_RF_01_O2_02 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
 	* Expected value: input file does not contain data or the data is not in the expected format

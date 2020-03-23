@@ -18,7 +18,7 @@ public class RequestTokenTest {
 	@Test
 	void CorrectRequestTokenTest() throws TokenManagementException {
 		String FilePath = this.jsonFilesFolder + "Correct.json";
-		String expectedToken = "??";
+		String expectedToken = "";
 		String obtainedToken = myMgr.RequestToken(FilePath);
 		assertEquals (expectedToken, obtainedToken);
 	}
