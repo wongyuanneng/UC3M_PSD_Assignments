@@ -16,7 +16,7 @@ public class TokensStore {
 	
 	private void Load() {
 		try {
-			JsonReader reader = new JsonReader(new FileReader(System.getProperty("user.dir")+"/Store/tokenStore.json"));
+			JsonReader reader = new JsonReader(new FileReader("src/resources/Func2/tokenStore.json"));
 			Gson gson = new Gson();
 			Token [] myArray = gson.fromJson(reader, Token[].class);
 			this.tokensList = new ArrayList<Token>();
@@ -41,7 +41,7 @@ public class TokensStore {
 		String jsonString = gson.toJson(this.tokensList);
 		FileWriter fw;
 		try {
-			fw = new FileWriter(System.getProperty("user.dir")+"/Store/tokenStore.json");
+			fw = new FileWriter("src/resources/Func2/tokenStore.json");
 			fw.write(jsonString);
 			fw.close();
 		} catch (IOException e) {

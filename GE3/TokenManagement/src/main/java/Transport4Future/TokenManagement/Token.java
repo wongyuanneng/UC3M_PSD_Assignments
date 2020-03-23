@@ -1,32 +1,61 @@
 package Transport4Future.TokenManagement;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 public class Token {
-	private Header h;
-	private Payload p;
-	private String signature;
+	private String alg;
+	private String typ;
+	private String device;
+	private long issued_at;
+	private long expiration_date;
+	private String requestDate;
+	private String notifEmail;
 	
-	public Token(Header h, Payload p, String signature) {
+	public Token(String device, String requestDate, String notifEmail) {
 		super();
-		this.h = h;
-		this.p = p;
-		this.signature = signature;
+		this.alg="SHA-256";
+		this.typ="PDS";
+		this.device = device;
+		//this.issued_at = System.currentTimeMillis();
+		this.issued_at = 1583780309;
+		this.expiration_date = this.issued_at + 604800000l;
+		this.requestDate = requestDate;
+		this.notifEmail = notifEmail;
+	}
+
+	public String getAlg() {
+		return alg;
+	}
+
+	public String getTyp() {
+		return typ;
+	}
+
+	public String getDevice() {
+		return device;
+	}
+
+	public long getIssued_at() {
+		return issued_at;
+	}
+
+	public long getExpiration_date() {
+		return expiration_date;
+	}
+
+	public String getRequestDate() {
+		return requestDate;
+	}
+
+	public String getNotifEmail() {
+		return notifEmail;
+	}
+
+	@Override
+	public String toString() {
+		return "Token [alg=" + alg + ", typ=" + typ + ", device=" + device + ", issued_at=" + issued_at
+				+ ", expiration_date=" + expiration_date + ", requestDate=" + requestDate + ", notifEmail=" + notifEmail
+				+ "]";
 	}
 	
-	public Header getH() {
-		return h;
-	}
-	
-	public Payload getP() {
-		return p;
-	}
-	
-	public String getSignature() {
-		return signature;
-	}
 }
