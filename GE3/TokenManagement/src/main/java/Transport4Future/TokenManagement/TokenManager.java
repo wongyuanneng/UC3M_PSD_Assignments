@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.stream.JsonParsingException;
 import javax.print.attribute.standard.DateTimeAtCreation;
 
 
@@ -33,10 +34,11 @@ public class TokenManager {
 		String fileContents = "";
 		BufferedReader reader;
 		
+		
 		try {
 			reader = new BufferedReader(new FileReader(path));
 		} catch (FileNotFoundException e) {
-			throw new TokenManagementException("Error: input file not found.");
+			throw new TokenManagementException("Error: input data file not found.");
 		}
 		
 		String line;
@@ -54,9 +56,20 @@ public class TokenManager {
 			throw new TokenManagementException("Error: input file could not be closed.");
 		}
 
-		JsonObject jsonLicense = Json.createReader(new StringReader(fileContents)).readObject();
+		
+		
 		DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+		
+		
+		
 		try {
+			//test if input file contain data in expected format
+			JsonObject jsonLicense = Json.createReader(new StringReader(fileContents)).readObject();
+			
+			//test if input file contain data
+			if (jsonLicense.isEmpty()) {
+				throw new TokenManagementException("Error: input file does not contain data or the data is not in the expected format.");
+			}
 			
 			String deviceName = jsonLicense.getString("Device Name");
 			String typeDevice = jsonLicense.getString("Type of Device");
@@ -67,6 +80,8 @@ public class TokenManager {
 			
 			req = new TokenRequest(deviceName, typeDevice, driverVersion, serialNumber, macAddress, supportEmail);
 			
+		} catch(JsonParsingException jpe) {
+			throw new TokenManagementException("Error: input file does not contain data or the data is not in the expected format.");
 		} catch(Exception e) {
 			throw new TokenManagementException("Error: invalid input data in JSON structure.");
 		}
@@ -120,7 +135,7 @@ public class TokenManager {
 	
 	//device name tester
 	void validateDeviceName(TokenRequest req) throws TokenManagementException {
-		Pattern dnPattern = Pattern.compile("^{1,21}$");
+		Pattern dnPattern = Pattern.compile("^.{1,21}$");
 		if (!dnPattern.matcher(req.getDeviceName()).matches()) {
 			throw new TokenManagementException("Error: invalid Device Name data in JSON structure.");	
 		}
@@ -128,7 +143,7 @@ public class TokenManager {
 		
 	//sn tester
 	void validateSN(TokenRequest req) throws TokenManagementException {
-		Pattern snPattern = Pattern.compile("^[a-zA-Z0-9-]{1,51}$");
+		Pattern snPattern = Pattern.compile("^[a-zA-Z0-9-]+$");
 		if (!snPattern.matcher(req.getSerialNumber()).matches()) {
 			throw new TokenManagementException("Error: invalid Serial Number data in JSON structure.");	
 		}
@@ -136,22 +151,28 @@ public class TokenManager {
 		
 	//type tester
 	void validateType(TokenRequest req) throws TokenManagementException {
-		Pattern typePattern = Pattern.compile("/Sensor|Actuator/");
-		if (!typePattern.matcher(req.getTypeDevice()).matches()) {
+		if (!(req.getTypeDevice().compareTo("Sensor")==0)&&!(req.getTypeDevice().compareTo("Actuator")==0)) {
 			throw new TokenManagementException("Error: invalid Device Type data in JSON structure.");	
 		}
 	}
 		
 	//driver version tester
 	void validateDriverVer(TokenRequest req) throws TokenManagementException {
-		Pattern dvPattern = Pattern.compile("^[0-9][0-9.]{0,25}$");
+		Pattern dvPattern = Pattern.compile("^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$");
 		if (!dvPattern.matcher(req.getDriverVersion()).matches()) {
 			throw new TokenManagementException("Error: invalid Driver Version data in JSON structure.");	
+		}
+		else {
+			try {
+				Date d = new SimpleDateFormat("YYYY-MM-dd").parse(req.getDriverVersion());
+			} catch (ParseException e) {
+				throw new TokenManagementException("Error: invalid Driver Version data in JSON structure.");
+			}
 		}
 	}
 	
 	//validate json data
-	void validateAll(TokenRequest req) throws TokenManagementException {
+	void validateAll_01(TokenRequest req) throws TokenManagementException {
 		validateDeviceName(req);
 		validateType(req);
 		validateDriverVer(req);

@@ -39,7 +39,7 @@ public class AppTest
 			Assertions.fail("A file not found exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: input file not found.");
+			Assertions.assertEquals(e.message, "Error: input data file not found.");
 		}
 		
 	}
@@ -64,60 +64,160 @@ public class AppTest
 	}
 	
 	@Test
-	/* Test case: TM_RF_01_P1
+	/* Test case: TM_RF_01_P1_01 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
-	* Expected value: incorrect data received
+	* Expected value: incorrect Device Name received
 	*/
-	public void TM_RF_01_P1()
+	public void TM_RF_01_P1_01()
 	{
-		String filePath = "resources/CP-RF1-01.json";
+		String filePath = "src/resources/CP-RF1-TM-RF-01-P1-01.json";
 		TokenManager tm = new TokenManager();
 		try {
 			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
-			tm.validateAll(req);
-			Assertions.fail("A invalid input data in JSON structure exception was expected.");
+			tm.validateDeviceName(req);
+			Assertions.fail("An invalid Device Name data in JSON structure exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
+			Assertions.assertEquals(e.message, "Error: invalid Device Name data in JSON structure.");
 		}
 	}
 	
 	@Test
-	/* Test case: TM_RF_01_P2
+	/* Test case: TM_RF_01_P1_02 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
-	* Expected value: correct data received
+	* Expected value: incorrect  Driver Version received
+	*/
+	public void TM_RF_01_P1_02()
+	{
+		String filePath = "src/resources/CP-RF1-TM-RF-01-P1-02.json";
+		TokenManager tm = new TokenManager();
+		try {
+			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
+			tm.validateDriverVer(req);
+			Assertions.fail("An invalid Driver Version data in JSON structure exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: invalid Driver Version data in JSON structure.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_01_P1_03 - DONE
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: incorrect E-mail received
+	*/
+	public void TM_RF_01_P1_03()
+	{
+		String filePath = "src/resources/CP-RF1-TM-RF-01-P1-03.json";
+		TokenManager tm = new TokenManager();
+		try {
+			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
+			tm.validateEmail(req);
+			Assertions.fail("An invalid E-mail data in JSON structure exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: invalid E-mail data in JSON structure.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_01_P1_04 - DONE
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: incorrect MAC Address received
+	*/
+	public void TM_RF_01_P1_04()
+	{
+		String filePath = "src/resources/CP-RF1-TM-RF-01-P1-04.json";
+		TokenManager tm = new TokenManager();
+		try {
+			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
+			tm.validateMac(req);
+			Assertions.fail("An invalid MAC Address data in JSON structure exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: invalid MAC Address data in JSON structure.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_01_P1_05 - DONE
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: incorrect Serial Number received
+	*/
+	public void TM_RF_01_P1_05()
+	{
+		String filePath = "src/resources/CP-RF1-TM-RF-01-P1-05.json";
+		TokenManager tm = new TokenManager();
+		try {
+			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
+			tm.validateSN(req);
+			Assertions.fail("An invalid Serial Number data in JSON structure exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: invalid Serial Number data in JSON structure.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_01_P1_06 - DONE
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: incorrect Device Type received
+	*/
+	public void TM_RF_01_P1_06()
+	{
+		String filePath = "src/resources/CP-RF1-TM-RF-01-P1-06.json";
+		TokenManager tm = new TokenManager();
+		try {
+			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
+			tm.validateType(req);
+			Assertions.fail("An invalid Device Type data in JSON structure exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: invalid Device Type data in JSON structure.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_01_P2 - DONE
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: correct data received and the value generated is a String
 	*/
 	public void TM_RF_01_P2()
 	{
-		String filePath = "resources/CP-RF1-01_P2.json";
+		String filePath = "src/resources/CP-RF1-01.json";
 		TokenManager tm = new TokenManager();
 		try {
 			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
-			tm.validateAll(req);
-			String res = tm.TokenRequestGeneration(filePath);
-			if (res.isEmpty())
+			tm.validateAll_01(req);
+			if (!(tm.TokenRequestGeneration(filePath) instanceof String)) {
 				Assertions.fail("A generated String value was expected.");
+			}
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "?");
+			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure");
 		}
 	}
 	
 	@Test
-	/* Test case: TM_RF_01_O1
+	/* Test case: TM_RF_01_O1 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
-	* Expected value: invalid input data in JSON structure
+	* Expected value: string value corresponding to the generated Token Request
 	*/
 	public void TM_RF_01_O1()
 	{
-		String filePath = "resources/CP-RF1-01.json";
+		String filePath = "src/resources/CP-RF1-01.json";
 		TokenManager tm = new TokenManager();
 		try {
 			String res = tm.TokenRequestGeneration(filePath);
-			Assertions.fail("A invalid input data in JSON structure exception was expected.");
+			System.out.println(res);
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
@@ -125,21 +225,59 @@ public class AppTest
 	}
 	
 	@Test
-	/* Test case: TM_RF_01_O2
+	/* Test case: TM_RF_01_O2_01
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
-	* Expected value: invalid input data in JSON structure
+	* Expected value: input data file not found
 	*/
-	public void TM_RF_01_O2()
+	public void TM_RF_01_O2_01()
 	{
-		String filePath = "resources/CP-RF1-1.json";
+		String filePath = "src/resources/no_file_found.json";
 		TokenManager tm = new TokenManager();
 		try {
 			String res = tm.TokenRequestGeneration(filePath);
-			Assertions.fail("An exception was expected.");
+			Assertions.fail("An input data file not found exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			Assertions.assertEquals(e.message, "Error: input data file not found.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_01_O2_02
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: input file does not contain data or the data is not in the expected format
+	*/
+	public void TM_RF_01_O2_02()
+	{
+		String filePath = "src/resources/not_json_file.json";
+		TokenManager tm = new TokenManager();
+		try {
+			String res = tm.TokenRequestGeneration(filePath);
+			Assertions.fail("An input file does not contain data or the data is not in the expected format exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: input file does not contain data or the data is not in the expected format.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_01_O2_03 ???
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: input file does not contain data or the data is not in the expected format
+	*/
+	public void TM_RF_01_O2_03()
+	{
+		String filePath = "src/resources/internal_processing_error.json";
+		TokenManager tm = new TokenManager();
+		try {
+			String res = tm.TokenRequestGeneration(filePath);
+			Assertions.fail("An internal processing error when obtaining the Token Request exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: internal processing error when obtaining the Token Request.");
 		}
 	}
 }
