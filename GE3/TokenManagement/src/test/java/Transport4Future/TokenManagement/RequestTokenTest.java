@@ -105,24 +105,46 @@ public class RequestTokenTest {
 	/* Test case: TM_RF_02_P2_01
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
-	* Expected value: incorrect Requested Date received
+	* Expected value: verify further access requests without storing ALL the tokens generated
 	*/
 	public void TM_RF_02_P2_01()
 	{
-		String filePath = "src/resources/Func2/CP-RF1-TM-RF-02-P1-03.json";
+		String filePath = "src/resources/Func2/CP-RF1-TM-RF-02-P2-01.json";
 		TokenManager tm = new TokenManager();
 		try {
 			Token t = tm.readTokenFromJSON(filePath);
-			tm.validateReqDate(t);
-			Assertions.fail("An invalid Requested Date data in JSON structure exception was expected.");
+			TokensStore ts = new TokensStore();
+			ts.Find(t.toString());
+			Assertions.fail("An invalid ??? exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: invalid Requested Date data in JSON structure.");
+			Assertions.assertEquals(e.message, "Error: invalid ???.");
 		}
 	}
 	
 	@Test
-	/* Test case: TM_RF_02_O1_01
+	/* Test case: TM_RF_02_P2_02
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: verify further access requests after storing ALL the tokens generated
+	*/
+	public void TM_RF_02_P2_02()
+	{
+		String filePath = "src/resources/Func2/CP-RF1-TM-RF-02-P2-02.json";
+		TokenManager tm = new TokenManager();
+		try {
+			Token t = tm.readTokenFromJSON(filePath);
+			TokensStore ts = new TokensStore();
+			ts.Find(t.toString());
+			Assertions.fail("An invalid ??? exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: invalid ???.");
+		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_02_O1_01 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
 	* Testing technique: Equivalence Class
 	* Expected value: string value corresponding to the encoded Token
@@ -198,5 +220,38 @@ public class RequestTokenTest {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: input file does not contain data or the data is not in the expected format.");
 		}
+	}
+	
+	@Test
+	/* Test case: TM_RF_02_O2_03
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: Internal processing error when generating the Token.
+	*/
+	public void TM_RF_02_O2_03()
+	{
+		
+	}
+	
+	@Test
+	/* Test case: TM_RF_02_O2_04
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: Internal error when saving the token.
+	*/
+	public void TM_RF_02_O2_04()
+	{
+		
+	}
+	
+	@Test
+	/* Test case: TM_RF_02_O2_05
+	* Equivalence class or boundary value considered: <CE-RF1-V-01
+	* Testing technique: Equivalence Class
+	* Expected value: Internal error when encoding the token
+	*/
+	public void TM_RF_02_O2_05()
+	{
+		
 	}
 }
