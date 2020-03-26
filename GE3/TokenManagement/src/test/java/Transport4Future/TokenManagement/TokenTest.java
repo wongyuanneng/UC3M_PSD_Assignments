@@ -15,7 +15,7 @@ public class TokenTest {
 		String filePath = "src/resources/Func2/CP-RF1-01.json";
 		TokenManager tm = new TokenManager();
 		try {
-			String res = tm.TokenRequestGeneration(filePath);
+			String res = tm.TokenRequestGeneration(filePath, "MD5");
 			Assertions.fail("A invalid input data in JSON structure exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block

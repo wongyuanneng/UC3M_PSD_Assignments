@@ -94,14 +94,14 @@ public class TokenManager {
 	// String represents TM-RF-01-O1
 	// String InputFile represents TM-RF-01-I1
 	// TokenManagerException represents TM-RF-01-O2
-	String TokenRequestGeneration (String InputFile) throws TokenManagementException
+	String TokenRequestGeneration (String InputFile, String algo) throws TokenManagementException
 	{
 		TokenRequest req = this.readTokenRequestFromJSON(InputFile);
 		MessageDigest md;
 		try {
-			md = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			throw new TokenManagementException("Error: no such hashing algorithm.");
+			md = MessageDigest.getInstance(algo);
+		} catch (Exception e) {
+			throw new TokenManagementException("Error: internal processing error when obtaining the Token Request.");
 		}
 		
 		//  Defined  password is "Stardust" & req is the TokenRequest object
