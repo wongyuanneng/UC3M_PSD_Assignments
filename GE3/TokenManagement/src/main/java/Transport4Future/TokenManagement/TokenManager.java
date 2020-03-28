@@ -80,6 +80,8 @@ public class TokenManager {
 			
 			req = new TokenRequest(deviceName, typeDevice, driverVersion, serialNumber, macAddress, supportEmail);
 			
+			validateAll(req);
+			
 		} catch(JsonParsingException jpe) {
 			throw new TokenManagementException("Error: input file does not contain data or the data is not in the expected format.");
 		} catch(Exception e) {
@@ -178,7 +180,7 @@ public class TokenManager {
 	}
 	
 	//validate json data
-	void validateAll_01(TokenRequest req) throws TokenManagementException {
+	void validateAll(TokenRequest req) throws TokenManagementException {
 		validateDeviceName(req);
 		validateType(req);
 		validateDriverVer(req);
@@ -247,6 +249,7 @@ public class TokenManager {
 		Token t = readTokenFromJSON(InputFile);	//create token by reading json and saving fields, validation.
 		String sig = CodeHash256(t);			//encrypt 256
 		String encodedSig = encodeString(sig); 	//encode 64
+		t.setSignature(encodedSig);
 		ts.Add(t);
 		
 		return encodedSig;		
@@ -313,9 +316,32 @@ public class TokenManager {
 		}
 	}
 	
-	void tokenTester(String hex, String expected) throws TokenManagementException {
+	public void tokenTester(String hex, String expected) throws TokenManagementException {
 		if (!(hex.compareTo(expected)==0)) {
 			throw new TokenManagementException("Error: encoded string value does not correspond to expected string value of the Token.");
 		}
+	}
+	
+	private boolean isValid (Token t) {
+		return (!t.isExpired() && t.isGranted());
+	}
+	
+	public boolean VerifyToken(String Token) throws TokenManagementException {
+		TokensStore ts = new TokensStore();
+		boolean result = false;
+		
+		Token tokenFound = ts.Find(Token);
+		
+		if (tokenFound!=null) {
+			result = isValid(tokenFound);
+		}
+		else {
+			throw new TokenManagementException("Error: input string does not contain a token that can be processed.");
+		}
+		
+		if (!result) {
+			throw new TokenManagementException("Error: token to be verified is not registered.");
+		}
+		return result;
 	}
 }

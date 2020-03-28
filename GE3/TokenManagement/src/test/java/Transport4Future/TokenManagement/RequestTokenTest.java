@@ -1,27 +1,10 @@
 package Transport4Future.TokenManagement;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class RequestTokenTest {
-	private TokenManager myMgr;
-	
-	public RequestTokenTest() {
-		myMgr = new TokenManager();
-	}
-	
-	@DisplayName("Correct Token Request")
-	@Test
-	void CorrectRequestTokenTest() throws TokenManagementException {
-		String FilePath = "src/resources/Func2/CP-RF1-01.json";
-		String expectedToken = "N2VjYWE3YjJhMDg0NWMxZjk2YTk4ZGMxZTQwMDU2MDhjMjBhZjc1YjgyZjc3MDc1M2VmNDI2NGJjNDJmYzJiYw==";
-		String obtainedToken = myMgr.RequestToken(FilePath);
-		assertEquals (expectedToken, obtainedToken);
-	}
-	
+
 	@Test
 	/* Test case: TM_RF_02_I1 - DONE
 	* Equivalence class or boundary value considered: <CE-RF1-V-01
