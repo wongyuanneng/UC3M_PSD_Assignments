@@ -84,6 +84,8 @@ public class TokenManager {
 			
 		} catch(JsonParsingException jpe) {
 			throw new TokenManagementException("Error: input file does not contain data or the data is not in the expected format.");
+		} catch(TokenManagementException tme) {
+			throw tme;
 		} catch(Exception e) {
 			throw new TokenManagementException("Error: invalid input data in JSON structure.");
 		}

@@ -132,59 +132,59 @@ public class AppTest
 		TokenManager tm = new TokenManager();
 		String filePath;
 		
-		filePath = "src/resources/Func1/CP-RF1-P1_1.json";
+		filePath = "src/resources/Func1/CP-RF1-P1_1a.json";
 		try {
 			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
-			tm.validateDeviceName(req);
 			Assertions.fail("An invalid Device Name data in JSON structure exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Device Name data in JSON structure.");
 		}
 		
+		filePath = "src/resources/Func1/CP-RF1-P1_1b.json";
 		try {
 			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
-			tm.validateDriverVer(req);
+			Assertions.fail("An invalid Device Type data in JSON structure exception was expected.");
+		} catch (TokenManagementException e) {
+			// TODO Auto-generated catch block
+			Assertions.assertEquals(e.message, "Error: invalid Device Type data in JSON structure.");
+		}
+				
+		filePath = "src/resources/Func1/CP-RF1-P1_1c.json";
+		try {
+			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
 			Assertions.fail("An invalid Driver Version data in JSON structure exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Driver Version data in JSON structure.");
 		}
-		
+				
+		filePath = "src/resources/Func1/CP-RF1-P1_1d.json";
 		try {
 			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
-			tm.validateEmail(req);
 			Assertions.fail("An invalid E-mail data in JSON structure exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid E-mail data in JSON structure.");
 		}
 		
-		try {
-			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
-			tm.validateMac(req);
-			Assertions.fail("An invalid MAC Address data in JSON structure exception was expected.");
-		} catch (TokenManagementException e) {
-			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: invalid MAC Address data in JSON structure.");
-		}
 		
+		filePath = "src/resources/Func1/CP-RF1-P1_1e.json";
 		try {
 			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
-			tm.validateSN(req);
 			Assertions.fail("An invalid Serial Number data in JSON structure exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Serial Number data in JSON structure.");
 		}
 		
+		filePath = "src/resources/Func1/CP-RF1-P1_1f.json";
 		try {
 			TokenRequest req = tm.readTokenRequestFromJSON(filePath);
-			tm.validateType(req);
-			Assertions.fail("An invalid Device Type data in JSON structure exception was expected.");
+			Assertions.fail("An invalid MAC Address data in JSON structure exception was expected.");
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: invalid Device Type data in JSON structure.");
+			Assertions.assertEquals(e.message, "Error: invalid MAC Address data in JSON structure.");
 		}
 		
 		filePath = "src/resources/Func1/CP-RF1-P1_2.json";
