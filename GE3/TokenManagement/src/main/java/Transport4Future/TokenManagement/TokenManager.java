@@ -235,7 +235,9 @@ public class TokenManager {
 			String notifEmail = jsonLicense.getString("Notification e-mail");
 			String reqDate = jsonLicense.getString("Request Date"); 			
 			t = new Token(tr, reqDate, notifEmail);
-		
+			
+		} catch(NullPointerException e) {
+			throw new TokenManagementException("Error: invalid object names in JSON structure.");
 		} catch(JsonParsingException jpe) {
 			throw new TokenManagementException("Error: input file does not contain data or the data is not in the expected format.");
 		} catch(Exception e) {
@@ -245,10 +247,15 @@ public class TokenManager {
 		return t;
 	}
 	
+	
+	
 	public String RequestToken(String InputFile) throws TokenManagementException {
 		TokensStore ts = new TokensStore();
 		
 		Token t = readTokenFromJSON(InputFile);	//create token by reading json and saving fields, validation.
+		validateTokenReq(t);
+		validateEmail(t);
+		validateReqDate(t);
 		String sig = CodeHash256(t);			//encrypt 256
 		String encodedSig = encodeString(sig); 	//encode 64
 		t.setSignature(encodedSig);
