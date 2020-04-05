@@ -16,7 +16,7 @@ public class TokensStore {
 	
 	private void Load() {
 		try {
-			JsonReader reader = new JsonReader(new FileReader("src/resources/Func2/tokenStore.json"));
+			JsonReader reader = new JsonReader(new FileReader("src/resources/Store/tokenStore.json"));
 			Gson gson = new Gson();
 			Token [] myArray = gson.fromJson(reader, Token[].class);
 			this.tokensList = new ArrayList<Token>();
@@ -30,7 +30,7 @@ public class TokensStore {
 	
 	public void Add(Token newToken) throws TokenManagementException {
 		this.Load();
-		if (Find(newToken.toString())==null) {
+		if (Find(newToken.getSignature())==null) {
 			tokensList.add(newToken);
 			this.Save();
 		}
@@ -41,7 +41,7 @@ public class TokensStore {
 		String jsonString = gson.toJson(this.tokensList);
 		FileWriter fw;
 		try {
-			fw = new FileWriter("src/resources/Func2/tokenStore.json");
+			fw = new FileWriter("src/resources/Store/tokenStore.json");
 			fw.write(jsonString);
 			fw.close();
 		} catch (IOException e) {
@@ -50,10 +50,12 @@ public class TokensStore {
 	}
 	
 	public Token Find(String tokenToFind) {
+		System.out.println("1. "+tokenToFind);
 		Token result = null;
 		this.Load();
 		for (Token token: this.tokensList) {
-			if (token.toString().equals(tokenToFind)) {
+			System.out.println("2. "+token.getSignature());
+			if (token.getSignature().equals(tokenToFind)) {
 				result = token;
 			}
 		}

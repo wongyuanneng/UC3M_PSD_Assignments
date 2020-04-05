@@ -21,8 +21,8 @@ public class Token {
 		this.typ="PDS";
 		this.device = device;
 		//this.issued_at = System.currentTimeMillis();
-		this.issued_at = 1583780309;
-		this.expiration_date = this.issued_at + 604800000l;
+		this.issued_at = 1586121503121l;
+		this.expiration_date = this.issued_at + 6048000000l;
 		this.requestDate = requestDate;
 		this.notifEmail = notifEmail;
 		this.signature = null;
