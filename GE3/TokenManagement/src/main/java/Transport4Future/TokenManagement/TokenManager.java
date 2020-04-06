@@ -345,12 +345,9 @@ public class TokenManager {
 			result = isValid(tokenFound);
 		}
 		else {
-			throw new TokenManagementException("Error: input string does not contain a token that can be processed.");
-		}
-		
-		if (!result) {
 			throw new TokenManagementException("Error: token to be verified is not registered.");
 		}
+		
 		return result;
 	}
 }
