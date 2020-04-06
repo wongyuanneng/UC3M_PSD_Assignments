@@ -1150,25 +1150,6 @@ public class RequestTokenTest {
 		}
 	}
 	
-	@Test
-	/* Test case: AS-FR2-NV-056 - DONE
-	* Derivation Tree Node: 76
-	* Type of case: Modification
-	* Testing technique: Syntax Analysis
-	* Expected value: invalid object names in JSON structure.
-	*/
-	public void TM_RF_02_I56()
-	{
-		String filePath = "src/resources/Func2/AS-FR2-NV-056.json";
-		TokenManager tm = new TokenManager();
-		try {
-			String res = tm.RequestToken(filePath);
-			Assertions.fail("A invalid input data in JSON structure exception was expected.");
-		} catch (TokenManagementException e) {
-			// TODO Auto-generated catch block
-			Assertions.assertEquals("Error: invalid object names in JSON structure.", e.message);
-		}
-	}
 	
 	@Test
 	/* Test case: AS-FR2-NV-057 - DONE
@@ -1187,26 +1168,6 @@ public class RequestTokenTest {
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals("Error: invalid Notification E-mail data in JSON structure.", e.message);
-		}
-	}
-	
-	@Test
-	/* Test case: AS-FR2-NV-058 - DONE
-	* Derivation Tree Node: 78
-	* Type of case: Modification
-	* Testing technique: Syntax Analysis
-	* Expected value: invalid object names in JSON structure.
-	*/
-	public void TM_RF_02_I58()
-	{
-		String filePath = "src/resources/Func2/AS-FR2-NV-058.json";
-		TokenManager tm = new TokenManager();
-		try {
-			String res = tm.RequestToken(filePath);
-			Assertions.fail("A invalid input data in JSON structure exception was expected.");
-		} catch (TokenManagementException e) {
-			// TODO Auto-generated catch block
-			Assertions.assertEquals("Error: invalid object names in JSON structure.", e.message);
 		}
 	}
 	
@@ -1230,25 +1191,6 @@ public class RequestTokenTest {
 		}
 	}
 	
-	@Test
-	/* Test case: AS-FR2-NV-060 - DONE
-	* Derivation Tree Node: 80
-	* Type of case: Modification
-	* Testing technique: Syntax Analysis
-	* Expected value: invalid object names in JSON structure.
-	*/
-	public void TM_RF_02_I60()
-	{
-		String filePath = "src/resources/Func2/AS-FR2-NV-060.json";
-		TokenManager tm = new TokenManager();
-		try {
-			String res = tm.RequestToken(filePath);
-			Assertions.fail("A invalid input data in JSON structure exception was expected.");
-		} catch (TokenManagementException e) {
-			// TODO Auto-generated catch block
-			Assertions.assertEquals("Error: invalid object names in JSON structure.", e.message);
-		}
-	}
 	
 	@Test
 	/* Test case: AS-FR2-NV-061 - DONE
