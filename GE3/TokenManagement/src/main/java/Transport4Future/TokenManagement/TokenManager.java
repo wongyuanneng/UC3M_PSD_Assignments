@@ -98,8 +98,7 @@ public class TokenManager {
 	// String represents TM-RF-01-O1
 	// String InputFile represents TM-RF-01-I1
 	// TokenManagerException represents TM-RF-01-O2
-	String TokenRequestGeneration (String InputFile, String algo) throws TokenManagementException
-	{
+	String TokenRequestGeneration(String InputFile, String algo) throws TokenManagementException{
 		TokenRequest req = this.readTokenRequestFromJSON(InputFile);
 		MessageDigest md;
 		try {
@@ -171,8 +170,7 @@ public class TokenManager {
 		Pattern dvPattern = Pattern.compile("^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$");
 		if (!dvPattern.matcher(req.getDriverVersion()).matches()) {
 			throw new TokenManagementException("Error: invalid Driver Version data in JSON structure.");	
-		}
-		else {
+		} else {
 			try {
 				Date d = new SimpleDateFormat("YYYY-MM-dd").parse(req.getDriverVersion());
 			} catch (ParseException e) {
@@ -315,8 +313,7 @@ public class TokenManager {
 		Pattern dvPattern = Pattern.compile("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4} (2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$");
 		if (!dvPattern.matcher(t.getRequestDate()).matches()) {
 			throw new TokenManagementException("Error: invalid Requested Date data in JSON structure.");	
-		}
-		else {
+		} else {
 			try {
 				Date d = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(t.getRequestDate());
 			} catch (ParseException e) {
@@ -331,7 +328,7 @@ public class TokenManager {
 		}
 	}
 	
-	private boolean isValid (Token t) {
+	private boolean isValid(Token t) {
 		return (!t.isExpired() && t.isGranted());
 	}
 	
@@ -343,8 +340,7 @@ public class TokenManager {
 		
 		if (tokenFound!=null) {
 			result = isValid(tokenFound);
-		}
-		else {
+		} else {
 			throw new TokenManagementException("Error: token to be verified is not registered.");
 		}
 		
