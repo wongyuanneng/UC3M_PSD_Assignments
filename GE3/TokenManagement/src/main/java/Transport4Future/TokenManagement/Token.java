@@ -73,19 +73,19 @@ public class Token {
 		this.tokenValue = tokenValue;
 	}
 
-	public boolean isGranted () {
+	public boolean isGranted() {
 		return (this.issued_at < System.currentTimeMillis());
 	}
 	
-	public boolean isExpired () {
+	public boolean isExpired() {
 		return !(this.expiration_date > System.currentTimeMillis());
 	}
 
-	public String getHeader () {
+	public String getHeader() {
 		return	"Alg=" + this.alg + "\\n Typ=" + this.typ + "\\n";
 	}
 	
-	public String getPayload () {
+	public String getPayload() {
 		Date iatDate = new Date(this.issued_at);
 		Date expDate = new Date(this.expiration_date);
 		

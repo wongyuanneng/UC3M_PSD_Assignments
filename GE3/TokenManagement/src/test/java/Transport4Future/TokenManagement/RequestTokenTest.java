@@ -14,8 +14,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: Pass 
 	*/
-	public void CP_RF2_01() throws TokenManagementException
-	{
+	public void CP_RF2_01() throws TokenManagementException{
 		String filePath = "src/resources/Func2/AS-FR2-V-01.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -36,8 +35,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: File not found
 	*/
-	public void CP_RF2_02()
-	{
+	public void CP_RF2_02(){
 		String filePath = "src/resources/Func2/file_not_found.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -57,8 +55,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I1()
-	{
+	public void TM_RF_02_I1(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-01.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -77,8 +74,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I2()
-	{
+	public void TM_RF_02_I2(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-02.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -97,8 +93,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I3()
-	{
+	public void TM_RF_02_I3(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-03.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -117,8 +112,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I4()
-	{
+	public void TM_RF_02_I4(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-04.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -137,8 +131,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I5()
-	{
+	public void TM_RF_02_I5(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-05.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -157,8 +150,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I6()
-	{
+	public void TM_RF_02_I6(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-06.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -177,8 +169,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I7()
-	{
+	public void TM_RF_02_I7(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-07.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -197,8 +188,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I8()
-	{
+	public void TM_RF_02_I8(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-08.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -217,8 +207,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I9()
-	{
+	public void TM_RF_02_I9(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-09.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -237,8 +226,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I10()
-	{
+	public void TM_RF_02_I10(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-10.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -257,8 +245,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I11()
-	{
+	public void TM_RF_02_I11(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-11.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -277,8 +264,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I12()
-	{
+	public void TM_RF_02_I12(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-12.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -297,8 +283,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I13()
-	{
+	public void TM_RF_02_I13(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-13.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -317,8 +302,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I14()
-	{
+	public void TM_RF_02_I14(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-14.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -337,8 +321,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format.
 	*/
-	public void TM_RF_02_I15()
-	{
+	public void TM_RF_02_I15(){
 		String filePath = "src/resources/Func2/AS-FR2-NV-15.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -357,8 +340,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: incorrect Token Request String received
 	*/
-	public void TM_RF_02_P1_01()
-	{
+	public void TM_RF_02_P1_01(){
 		String filePath = "src/resources/Func2/CP-RF1-TM-RF-02-P1-01.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -378,8 +360,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: incorrect E-mail received
 	*/
-	public void TM_RF_02_P1_02()
-	{
+	public void TM_RF_02_P1_02(){
 		String filePath = "src/resources/Func2/CP-RF1-TM-RF-02-P1-02.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -399,8 +380,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: incorrect Requested Date received
 	*/
-	public void TM_RF_02_P1_03()
-	{
+	public void TM_RF_02_P1_03(){
 		String filePath = "src/resources/Func2/CP-RF1-TM-RF-02-P1-03.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -420,8 +400,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: verify further access requests without storing ALL the tokens generated
 	*/
-	public void TM_RF_02_P2_01()
-	{
+	public void TM_RF_02_P2_01(){
 		String filePath = "src/resources/Func2/CP-RF1-TM-RF-02-P2-01.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -442,8 +421,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: verify further access requests after storing ALL the tokens generated
 	*/
-	public void TM_RF_02_P2_02()
-	{
+	public void TM_RF_02_P2_02(){
 		String filePath = "src/resources/Func2/CP-RF1-TM-RF-02-P2-02.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -481,8 +459,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: string value does not correspond to the generated Token
 	*/
-	public void TM_RF_02_O1_02()
-	{
+	public void TM_RF_02_O1_02(){
 		String filePath = "src/resources/Func2/CP-RF1-01.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -503,8 +480,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input data file not found
 	*/
-	public void TM_RF_02_O2_01()
-	{
+	public void TM_RF_02_O2_01(){
 		String filePath = "src/resources/Func2/no_file_found.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -523,8 +499,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: input file does not contain data or the data is not in the expected format
 	*/
-	public void TM_RF_02_O2_02()
-	{
+	public void TM_RF_02_O2_02(){
 		String filePath = "src/resources/Func2/not_json_file.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -543,8 +518,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: Internal processing error when generating the Token.
 	*/
-	public void TM_RF_02_O2_03()
-	{
+	public void TM_RF_02_O2_03(){
 		
 	}
 	
@@ -555,8 +529,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: Internal error when saving the token.
 	*/
-	public void TM_RF_02_O2_04()
-	{
+	public void TM_RF_02_O2_04(){
 		
 	}
 	
@@ -567,8 +540,7 @@ public class RequestTokenTest {
 	* Testing technique: Syntax Analysis
 	* Expected value: Internal error when encoding the token
 	*/
-	public void TM_RF_02_O2_05()
-	{
+	public void TM_RF_02_O2_05(){
 		
 	}
 }

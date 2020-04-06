@@ -8,63 +8,58 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for simple App.
  */
-public class AppTest
-{
-	@Test
-	/* Test case: CP_RF1_01
-	* Equivalence class or boundary value considered: <CE-RF1-V-01>
-	* Testing technique: Equivalence Class
-	* Expected value: Pass 
-	*/
-	public void CP_RF1_01()
-	{
-		String filePath = "resources/Func1/CP-RF1-01.json";
-		TokenManager tm = new TokenManager();
-		Assertions.assertThrows(TokenManagementException.class, ()-> tm.readTokenRequestFromJSON(filePath));
-		assertNotNull(filePath);
-	}
+public class AppTest {
+  @Test
+  /* Test case: CP_RF1_01
+  * Equivalence class or boundary value considered: <CE-RF1-V-01>
+  * Testing technique: Equivalence Class
+  * Expected value: Pass 
+  */
+  public void cp_RF1_01() {
+    String filePath = "resources/Func1/CP-RF1-01.json";
+    TokenManager tm = new TokenManager();
+    Assertions.assertThrows(TokenManagementException.class, () -> tm.readTokenRequestFromJSON(filePath));
+    assertNotNull(filePath);
+  }
 	
-	@Test
-	/* Test case: CP_RF1_02
-	* Equivalence class or boundary value considered: <CE-RF1-IV-02>
-	* Testing technique: Equivalence Class
-	* Expected value: File not found
-	*/
-	public void CP_RF1_02()
-	{
-		String filePath = "src/resources/Func1/file_not_found.json";
-		TokenManager tm = new TokenManager();
-		try {
-			String res = tm.TokenRequestGeneration(filePath, "MD5");
-			Assertions.fail("A file not found exception was expected.");
-		} catch (TokenManagementException e) {
-			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: input data file not found.");
-		}
-		
-	}
-	
-	@Test
-	/* Test case: TM_RF_01_I1 - DONE
-	* Equivalence class or boundary value considered: 
-	* 	<CE-RF1-IV-04>
-	* 	<CE-RF1-IV-05>, <CE-RF1-IV-09>, <CE-RF1-IV-12>, <CE-RF1-IV-16>, <CE-RF1-IV-19>, <CE-RF1-IV-23>
-	* Testing technique: Equivalence Class
-	* Expected value: invalid input data in JSON structure
-	*/
-	public void TM_RF_01_I1()
-	{
-		TokenManager tm = new TokenManager();
-		String filePath;
-		
-		filePath = "src/resources/Func1/CP-RF1-I1_1.json";
-		try {
-			String res = tm.TokenRequestGeneration(filePath, "MD5");
-			Assertions.fail("A invalid input data in JSON structure exception was expected.");
-		} catch (TokenManagementException e) {
-			// TODO Auto-generated catch block
-			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
-		}
+  @Test
+  /* Test case: CP_RF1_02
+  * Equivalence class or boundary value considered: <CE-RF1-IV-02>
+  * Testing technique: Equivalence Class
+  * Expected value: File not found
+  */
+  public void cp_RF1_02() {
+    String filePath = "src/resources/Func1/file_not_found.json";
+    TokenManager tm = new TokenManager();
+    try {
+      String res = tm.TokenRequestGeneration(filePath, "MD5");
+      Assertions.fail("A file not found exception was expected.");
+    } catch (TokenManagementException e) {
+      // TODO Auto-generated catch block
+      Assertions.assertEquals(e.message, "Error: input data file not found.");
+    }
+  }
+
+  @Test
+  /* Test case: TM_RF_01_I1 - DONE
+  * Equivalence class or boundary value considered: 
+  * <CE-RF1-IV-04>
+  * <CE-RF1-IV-05>, <CE-RF1-IV-09>, <CE-RF1-IV-12>, <CE-RF1-IV-16>, <CE-RF1-IV-19>, <CE-RF1-IV-23>
+  * Testing technique: Equivalence Class
+  * Expected value: invalid input data in JSON structure
+  */
+  public void tm_RF_01_I1() {
+    TokenManager tm = new TokenManager();
+    String filePath;
+    
+    filePath = "src/resources/Func1/CP-RF1-I1_1.json";
+    try {
+      String res = tm.TokenRequestGeneration(filePath, "MD5");
+      Assertions.fail("A invalid input data in JSON structure exception was expected.");
+    } catch (TokenManagementException e) {
+      // TODO Auto-generated catch block
+      Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-I1_2.json";
 		try {
@@ -73,7 +68,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-I1_3.json";
 		try {
@@ -82,7 +77,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-I1_4.json";
 		try {
@@ -91,7 +86,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-I1_5.json";
 		try {
@@ -100,7 +95,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-I1_6.json";
 		try {
@@ -109,7 +104,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid input data in JSON structure.");
-		}
+    }
 	}
 	
 	@Test
@@ -127,8 +122,7 @@ public class AppTest
 	* 	incorrect Serial Number received
 	* 	incorrect Device Type received
 	*/
-	public void TM_RF_01_P1()
-	{
+	public void TM_RF_01_P1(){
 		TokenManager tm = new TokenManager();
 		String filePath;
 		
@@ -139,7 +133,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Device Name data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-P1_1b.json";
 		try {
@@ -148,7 +142,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Device Type data in JSON structure.");
-		}
+    }
 				
 		filePath = "src/resources/Func1/CP-RF1-P1_1c.json";
 		try {
@@ -157,7 +151,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Driver Version data in JSON structure.");
-		}
+    }
 				
 		filePath = "src/resources/Func1/CP-RF1-P1_1d.json";
 		try {
@@ -166,7 +160,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid E-mail data in JSON structure.");
-		}
+    }
 		
 		
 		filePath = "src/resources/Func1/CP-RF1-P1_1e.json";
@@ -176,7 +170,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Serial Number data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-P1_1f.json";
 		try {
@@ -185,7 +179,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid MAC Address data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-P1_2.json";
 		try {
@@ -195,7 +189,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Driver Version data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-P1_3.json";
 		try {
@@ -205,7 +199,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid Serial Number data in JSON structure.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-P1_4.json";
 		try {
@@ -215,8 +209,8 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: invalid MAC Address data in JSON structure.");
-		}
-	}
+    }
+  }
 	
 	@Test
 	/* Test case: TM_RF_01_P2 - DONE
@@ -226,8 +220,7 @@ public class AppTest
 	* Testing technique: Equivalence Class
 	* Expected value: correct data received and the value generated is a String
 	*/
-	public void TM_RF_01_P2()
-	{
+	public void TM_RF_01_P2(){
 		String filePath = "src/resources/Func1/CP-RF1-C1.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -239,7 +232,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: A generated String value was expected.");
-		}
+    }
 	}
 	
 	@Test
@@ -252,8 +245,7 @@ public class AppTest
 	* 	string value corresponding to the generated Token Request
 	* 	string value does no correspond to the generated Token Request
 	*/
-	public void TM_RF_01_O1()
-	{
+	public void TM_RF_01_O1(){
 		String filePath = "src/resources/Func1/CP-RF1-C1.json";
 		TokenManager tm = new TokenManager();
 		
@@ -265,7 +257,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: generated string value does not correspond to expected string value of the TokenRequest.");
-		}
+    }
 		 
 		try {
 			String res = tm.TokenRequestGeneration(filePath, "MD5");
@@ -274,7 +266,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.fail("An exception was not expected.");
-		}
+    }
 		
 	}
 	
@@ -290,8 +282,7 @@ public class AppTest
 	* 	input file does not contain data or the data is not in the expected format
 	* 	internal processing error when obtaining the Token Request
 	*/
-	public void TM_RF_01_O2()
-	{
+	public void TM_RF_01_O2(){
 		String filePath = "src/resources/Func1/no_file_found.json";
 		TokenManager tm = new TokenManager();
 		try {
@@ -300,7 +291,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: input data file not found.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-O2.json";
 		try {
@@ -309,7 +300,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: input file does not contain data or the data is not in the expected format.");
-		}
+    }
 		
 		filePath = "src/resources/Func1/CP-RF1-C1.json";
 		try {
@@ -318,7 +309,7 @@ public class AppTest
 		} catch (TokenManagementException e) {
 			// TODO Auto-generated catch block
 			Assertions.assertEquals(e.message, "Error: internal processing error when obtaining the Token Request.");
-		}
+    }
 	}
 	
 }
