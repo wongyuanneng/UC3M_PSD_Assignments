@@ -466,11 +466,11 @@ public class RequestTokenTest {
 	*/
 	public void TM_RF_02_O1_01() throws TokenManagementException {
 	
-		String filePath = "src/resources/Func2/CP-RF1-01.json";
+		String filePath = "src/resources/Func2/AS-FR2-V-01.json";
 		TokenManager tm = new TokenManager();
 
 		String res = tm.RequestToken(filePath);
-		Assertions.assertEquals("IGNjYjJlY2NjYmFlOGE2MGVmNTAyMjdiNzEyYjY1Y2MwZjgwMGE0MzRiYTkwYzAwMmQ0ZGQxZGM4OTI0MTI2MA==", res);
+		Assertions.assertEquals("N2IyNGI3YmNjNGM0OGE5ZmUxNDNmYTkwNmYzNDU0N2NjNzI0MTIzZjBjZGIyMjUxMTQ0NjEwNjM5YmEwNGI3MQ==", res);
 		
 	}
 	
@@ -487,7 +487,7 @@ public class RequestTokenTest {
 		TokenManager tm = new TokenManager();
 		try {
 			String res = tm.RequestToken(filePath);
-			tm.tokenTester(res, "N2VjYWE3YjJhMDg0NWMxZjk2YTk4ZGMxZTQwMDU2MDhjMjBhZjc1YjgyZjc3MDc1M2VmNDI2NGJjNDJmYzJiYw=+");
+			tm.tokenTester(res, "N2IyNGI3YmNjNGM0OGE5ZmUxNDNmYTkwNmYzNDU0N2NjNzI0MTIzZjBjZGIyMjUxMTQ0NjEwNjM5YmEwNGI3MQ=+");
 			
 			Assertions.fail("An encoded string value does not correspond to expected string value of the Token exception was expected.");
 		} catch (TokenManagementException e) {

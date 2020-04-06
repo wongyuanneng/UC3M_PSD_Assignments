@@ -318,7 +318,7 @@ public class TokenManager {
 		}
 		else {
 			try {
-				Date d = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(t.getRequestDate());
+				Date d = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(t.getRequestDate());
 			} catch (ParseException e) {
 				throw new TokenManagementException("Error: invalid Requested Date data in JSON structure.");
 			}
