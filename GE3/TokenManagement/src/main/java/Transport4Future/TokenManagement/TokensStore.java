@@ -13,25 +13,10 @@ import com.google.gson.stream.JsonReader;
 public class TokensStore {
 	
 	private List<Token> tokensList;
-	private String fileDir;
 	
-	public TokensStore() {
-		super();
-		this.fileDir = "src/resources/Store/tokenStore.json";
-	}
-	
-	public TokensStore(String fileDir) {
-		super();
-		this.fileDir = fileDir;
-	}
-
-	public List<Token> getTokensList() {
-		return tokensList;
-	}
-
 	private void Load() {
 		try {
-			JsonReader reader = new JsonReader(new FileReader(this.fileDir));
+			JsonReader reader = new JsonReader(new FileReader("src/resources/Store/tokenStore.json"));
 			Gson gson = new Gson();
 			Token [] myArray = gson.fromJson(reader, Token[].class);
 			this.tokensList = new ArrayList<Token>();
@@ -56,7 +41,7 @@ public class TokensStore {
 		String jsonString = gson.toJson(this.tokensList);
 		FileWriter fw;
 		try {
-			fw = new FileWriter(this.fileDir);
+			fw = new FileWriter("src/resources/Store/tokenStore.json");
 			fw.write(jsonString);
 			fw.close();
 		} catch (IOException e) {
@@ -65,9 +50,11 @@ public class TokensStore {
 	}
 	
 	public Token Find(String tokenToFind) {
+		System.out.println("1. "+tokenToFind);
 		Token result = null;
 		this.Load();
 		for (Token token: this.tokensList) {
+			System.out.println("2. "+token.getSignature());
 			if (token.getSignature().equals(tokenToFind)) {
 				result = token;
 			}
