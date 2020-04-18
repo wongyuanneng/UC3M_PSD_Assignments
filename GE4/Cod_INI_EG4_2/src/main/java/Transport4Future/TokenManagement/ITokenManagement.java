@@ -2,11 +2,11 @@ package Transport4Future.TokenManagement;
 
 public interface ITokenManagement {
 	
-	String TokenRequestGeneration (String InputFile) throws TokenManagementException;
+  String tokenRequestGeneration (String InputFile) throws TokenManagementException;
 
-	String RequestToken (String InputFile) throws TokenManagementException;
+  String requestToken (String InputFile) throws TokenManagementException;
 
-	boolean VerifyToken (String Token) throws TokenManagementException;
+  boolean verifyToken (String Token) throws TokenManagementException;
 
 
 }
