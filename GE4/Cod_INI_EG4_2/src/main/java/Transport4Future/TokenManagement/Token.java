@@ -1,9 +1,5 @@
 package Transport4Future.TokenManagement;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Token {
   private Header header;
   private Payload payload;

@@ -81,7 +81,7 @@ class VerifyTokenTest {
   void verifyValidToken() throws TokenManagementException {
     this.insertFirstToken();
     this.insertSecondToken();
-    String tokenToVerify = "QWxnPUhTMjU2XG4gVHlwPVBEU1xuRGV2PTYzY2ZjZmQ3NDgwYTE2NmE1NDFhZWY2MDkyM2I5NjU5XG4gaWF0PTE4LTAzLTIwMjAgMTA6MjI6MjBcbiBleHA9MTYtMDQtMjAyMiAxODo1NTo0MDA2ODI4YTI2NzhlZjYzNjc3OWJiMzVmZWFiZjI2Njg1OGU4NWFlYThjYjQ2YWQ1NDMyYWIwMTQzOTFmYjc0MTg=";
+    String tokenToVerify = "QWxnPUhTMjU2XG4gVHlwPVBEU1xuRGV2PTU3NjU5YmIwOTc4ZDQxMGIzYjc4YTg5MmM2MDRjY2I0XG4gaWF0PTE4LTAzLTIwMjAgMTc6MjI6MjBcbiBleHA9MTYtMDItMjAyMiAxNzoyMjoyMDdlNjY3Mzg2ZDNlNWMzOGIyZDY3NTNlYWI3MDM2ZTBlYmE1ZGViMTExNTQzMWM4Y2MyZjdmYmE3MTFkOTk3MjA=";
     boolean result = myManager.verifyToken(tokenToVerify);
     assertEquals (true,result);
   }

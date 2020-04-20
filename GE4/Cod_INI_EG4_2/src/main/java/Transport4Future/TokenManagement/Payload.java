@@ -17,11 +17,11 @@ public class Payload {
   public Payload(String device) {
     this.device = device;
     this.iat = 1584523340892l;
-    if ((this.device.startsWith("5"))){
+    if ((this.device.startsWith("4"))){
       this.exp = this.iat + 604800000l;
     }
     else {
-      this.exp = this.iat + 65604800000l;
+      this.exp = this.iat + 60480000000l;
     }
     //this.iat = System.currentTimeMillis();
   }
