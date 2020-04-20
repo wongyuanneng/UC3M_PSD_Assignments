@@ -316,13 +316,13 @@ public class TokenManager implements ITokenManagement {
   }
 	
   private void insertTokenSignature(Token myToken) throws TokenManagementException {
-    String input = myToken.headerToString() + myToken.payloadToString();
+    String input = myToken.getHeader().toString() + myToken.getPayload().toString();
     String signature = hashEncoding(input, "SHA-256");
     myToken.setSignature(signature);
   }
 	
   private void insertTokenValue(Token myToken) {
-    String stringToEncode = myToken.headerToString() + myToken.payloadToString() + myToken.getSignature();
+    String stringToEncode = myToken.getHeader().toString() + myToken.getPayload().toString() + myToken.getSignature();
     String encodedString = Base64.getUrlEncoder().encodeToString(stringToEncode.getBytes());
     myToken.setTokenValue(encodedString);
   }

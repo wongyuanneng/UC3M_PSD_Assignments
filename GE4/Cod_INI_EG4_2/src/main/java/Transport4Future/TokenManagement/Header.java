@@ -32,5 +32,14 @@ public class Header {
   public String getTyp() {
     return typ;
   }
+  
+  /**
+   * Get value of header from token parameters
+   *
+   * @throws TokenManagementException if any error occurs
+   */
+  public String toString() {
+    return	"Alg=" + this.alg + "\\n Typ=" + this.typ + "\\n";
+  }
 	
 }

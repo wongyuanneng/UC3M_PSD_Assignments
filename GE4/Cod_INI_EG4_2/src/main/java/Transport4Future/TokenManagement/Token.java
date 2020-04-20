@@ -43,32 +43,8 @@ public class Token {
   public Payload getPayload() {
     return payload;
   }
-
-/**
-   * Get value of header from token parameters
-   *
-   * @throws TokenManagementException if any error occurs
-   */
-  public String headerToString() {
-    return	"Alg=" + this.header.getAlg() + "\\n Typ=" + this.header.getTyp() + "\\n";
-  }
   
-  /**
-   * Get value of payload from token parameters
-   *
-   * @throws TokenManagementException if any error occurs
-   */
-  public String payloadToString () {
-    Date iatDate = new Date(this.payload.getIat());
-    Date expDate = new Date(this.payload.getExp());
-		
-    DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		
-    return	"Dev=" + this.payload.getDevice() 
-				+ "\\n iat=" + df.format(iatDate)
-				+ "\\n exp=" + df.format(expDate);
-  }
-	
+ 
   public void setSignature(String value) {
     this.signature = value;
   }

@@ -1,4 +1,8 @@
 package Transport4Future.TokenManagement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class Payload {
   private String device;
@@ -61,5 +65,22 @@ public class Payload {
       return true;
     }
   }
+  
+  /**
+   * Get value of payload from token parameters
+   *
+   * @throws TokenManagementException if any error occurs
+   */
+  public String toString () {
+    Date iatDate = new Date(this.iat);
+    Date expDate = new Date(this.exp);
+		
+    DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		
+    return	"Dev=" + this.device 
+				+ "\\n iat=" + df.format(iatDate)
+				+ "\\n exp=" + df.format(expDate);
+  }
+  
 	
 }
