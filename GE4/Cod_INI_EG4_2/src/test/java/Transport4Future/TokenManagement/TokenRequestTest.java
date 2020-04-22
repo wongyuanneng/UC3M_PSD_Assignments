@@ -10,39 +10,39 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 
 class TokenRequestTest {
 
-  private TokenManager myManager;
-	
-  public TokenRequestTest () {
-    myManager = new TokenManager ();
-  }
-	
-  @DisplayName ("Caso de prueba - Eliminación de Llave Inicial")
-  @Test
-  void inicio ()
-  {
-    String inputFilePath = "./TestData/TokenRequestTest/WithoutInitialBrace.json";
-    String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
-    TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
-      myManager.requestToken(inputFilePath);
-    });
-    assertEquals (expectedMessage,ex.getMessage());
-  }
-	
-  @DisplayName ("Invalid Test Cases")
-  @ParameterizedTest(name = "{index} -with the input ''{0}'' error expected is ''{1}''") 
-  @CsvFileSource(resources = "/invalidTestCasesRequestTokenTestReduced.csv")
-  void invalidTestCases(String InputFilePath, String expectedMessage) {
-    TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
-      myManager.requestToken(InputFilePath);
-    });
-    assertEquals (expectedMessage,ex.getMessage());
-  }
-	
-  @DisplayName ("Valid Test Cases")
-  @ParameterizedTest(name = "{index} -with the input ''{0}'' output expected is ''{1}''")
-  @CsvFileSource(resources = "/validTestCasesRequestTokenTest.csv")
-  void validTestCases(String InputFilePath, String Result) throws TokenManagementException {
-    String myResult = myManager.requestToken(InputFilePath);
-    assertEquals (Result,myResult);
-  }
+    private TokenManager myManager;
+
+    public TokenRequestTest () {
+        myManager = new TokenManager ();
+    }
+
+    @DisplayName ("Caso de prueba - Eliminación de Llave Inicial")
+    @Test
+    void inicio ()
+    {
+        String inputFilePath = "./TestData/TokenRequestTest/WithoutInitialBrace.json";
+        String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.requestToken(inputFilePath);
+        });
+        assertEquals (expectedMessage,ex.getMessage());
+    }
+
+    @DisplayName ("Invalid Test Cases")
+    @ParameterizedTest(name = "{index} -with the input ''{0}'' error expected is ''{1}''") 
+    @CsvFileSource(resources = "/invalidTestCasesRequestTokenTestReduced.csv")
+    void invalidTestCases(String InputFilePath, String expectedMessage) {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.requestToken(InputFilePath);
+        });
+        assertEquals (expectedMessage,ex.getMessage());
+    }
+
+    @DisplayName ("Valid Test Cases")
+    @ParameterizedTest(name = "{index} -with the input ''{0}'' output expected is ''{1}''")
+    @CsvFileSource(resources = "/validTestCasesRequestTokenTest.csv")
+    void validTestCases(String InputFilePath, String Result) throws TokenManagementException {
+        String myResult = myManager.requestToken(InputFilePath);
+        assertEquals (Result,myResult);
+    }
 }
