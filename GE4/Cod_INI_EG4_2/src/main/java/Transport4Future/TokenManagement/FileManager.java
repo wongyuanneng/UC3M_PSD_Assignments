@@ -233,15 +233,10 @@ public class FileManager {
         md.update(input.getBytes(StandardCharsets.UTF_8));
         byte[] digest = md.digest();
 
+        String hex = null;
         // Beware the hex length. If MD5 -> 32:"%032x", but for instance, in SHA-256 it should be "%064x" 
-        String hex=null;
-        if (algo.equals("MD5")) {
-            hex= String.format("%32x", new BigInteger(1, digest));
-        }
-        else if (algo.equals("SHA-256")){
-            hex= String.format("%64x", new BigInteger(1, digest));
-        }
-
+        //md.getDigestLength() is in number of Bytes, and since required int is number of Hex-digits, thus multiply by 2.
+        hex = String.format("%"+md.getDigestLength()*2+"x", new BigInteger(1, digest));
         return hex;
     }
 
