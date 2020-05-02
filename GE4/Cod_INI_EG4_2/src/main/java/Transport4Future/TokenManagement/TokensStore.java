@@ -11,8 +11,24 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 public class TokensStore {
-
+    private static TokensStore ts = null;
+    
     private List<Token> tokensList;
+    
+    /**
+     * TokensStore instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static TokensStore getTokensStoreInstance() {
+        if (ts == null) {
+            ts = new TokensStore();
+        }
+        else {
+            System.out.println("Cannot create object tokensStore because an object of class TokensStore already exists");
+        }
+        return ts;
+    }
 
     private void load() {
         try {

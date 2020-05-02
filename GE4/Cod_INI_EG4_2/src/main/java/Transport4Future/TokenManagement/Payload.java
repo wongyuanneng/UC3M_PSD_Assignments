@@ -5,6 +5,8 @@ import java.util.Date;
 
 
 public class Payload {
+    private static Payload p=null;
+    
     private String device;
     private long iat;
     private long exp;
@@ -38,6 +40,21 @@ public class Payload {
         return exp;
     }
 
+    /**
+     * Payload instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static Payload getPayloadInstance(String device) {
+        if (p == null) {
+            p = new Payload(device);
+        }
+        else {
+            System.out.println("Cannot create object " + device + " because an object of class Payload already exists");
+        }
+        return p;
+    }
+    
     /**
      * Checks if token is granted
      *

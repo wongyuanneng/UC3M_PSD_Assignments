@@ -5,6 +5,24 @@ import java.io.IOException;
 import javax.json.JsonObject;
 
 public class TokenRequestManager extends FileManager implements ITokenRequestManager {
+    
+    private static TokenRequestManager trm=null;
+    
+    /**
+     * FileManager instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static TokenRequestManager getTokenRequestManagerInstance() {
+        if (trm == null) {
+            trm = new TokenRequestManager();
+        }
+        else {
+            System.out.println("Cannot create object tokenRequestManager because an object of class TokenRequestManager already exists");
+        }
+        return trm;
+    }
+    
     /**
      * Generates a token request
      *

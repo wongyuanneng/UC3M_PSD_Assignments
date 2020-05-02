@@ -6,6 +6,24 @@ import javax.json.JsonObject;
 import com.google.gson.Gson;
 
 public class TokenManager extends FileManager implements ITokenManager {
+    
+    private static TokenManager tm=null;
+    
+    /**
+     * TokenManager instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static TokenManager getTokenManagerInstance() {
+        if (tm == null) {
+            tm = new TokenManager();
+        }
+        else {
+            System.out.println("Cannot create object tokenManager because an object of class TokenManager already exists");
+        }
+        return tm;
+    }
+    
     /**
      * Request for a token
      *

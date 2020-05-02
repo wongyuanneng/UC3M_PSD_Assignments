@@ -1,6 +1,24 @@
 package Transport4Future.TokenManagement;
 
-public class TokenStoreManager implements ITokenStoreManager {
+public class TokensStoreManager implements ITokensStoreManager {
+    
+    private static TokensStoreManager tsm=null;
+    
+    /**
+     * FileManager instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static TokensStoreManager getTokensStoreManagerInstance() {
+        if (tsm == null) {
+            tsm = new TokensStoreManager();
+        }
+        else {
+            System.out.println("Cannot create object tokensStoreManager because an object of class TokensStoreManager already exists");
+        }
+        return tsm;
+    }
+    
     /**
      * Verifies a given token
      *

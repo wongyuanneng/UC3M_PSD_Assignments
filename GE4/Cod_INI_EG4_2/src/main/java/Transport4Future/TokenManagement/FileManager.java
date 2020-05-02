@@ -20,6 +20,24 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class FileManager {
+    
+    private static FileManager fm=null;
+    
+    /**
+     * FileManager instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static FileManager getFileManagerInstance() {
+        if (fm == null) {
+            fm = new FileManager();
+        }
+        else {
+            System.out.println("Cannot create object fileManager because an object of class FileManager already exists");
+        }
+        return fm;
+    }
+    
     /**
      * Checks length of device name
      *

@@ -1,5 +1,5 @@
 package Transport4Future.TokenManagement;
 
-public interface ITokenManagement extends ITokenManager, ITokenRequestManager, ITokenStoreManager {
+public interface ITokenManagement extends ITokenManager, ITokenRequestManager, ITokensStoreManager {
 
 }
