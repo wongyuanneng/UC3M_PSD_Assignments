@@ -15,6 +15,7 @@ import Transport4Future.TokenManagement.Utils.TokenManagementException;
 public class TokenManager extends FileManager implements ITokenManager {
     
     private static TokenManager tm=null;
+    private static Token t=null;
     
     private TokenManager() {
         
@@ -51,29 +52,28 @@ public class TokenManager extends FileManager implements ITokenManager {
      * @throws TokenManagementException if any error occurs
      */
     public String requestToken(String InputFile) throws TokenManagementException {
-        Token myToken = null;
-
         String fileContents = inputFileCheck(InputFile);
 
         // Transform the String with the file contents into a JSON object (in memory).
         JsonObject jsonLicense = createJsonLicense(fileContents);
-        myToken = checkJsonStruct(jsonLicense);
+        
+        checkJsonStruct(jsonLicense);
+        checkInformationFormat();
 
-        checkTokenRequestInformationFormat(myToken);
+        insertTokenSignature();
+        insertTokenValue();
 
-        insertTokenSignature(myToken);
-        insertTokenValue(myToken);
+        TokensStore myStore = TokensStore.getInstance();
+        myStore.add(t);
 
-        TokensStore myStore = new TokensStore();
-        myStore.add(myToken);
-
-        return myToken.getTokenValue();
+        return t.getTokenValue();
     }
-
-    private void checkTokenRequestInformationFormat(Token TokenToVerify) throws TokenManagementException {
-        devicePatternCheck(TokenToVerify.getPayload().getDevice());
-        datePatternCheck(TokenToVerify.getRequestDate());
-        emailPatternCheck(TokenToVerify.getNotificationEmail());
+    
+    @Override
+    public void checkInformationFormat() throws TokenManagementException {
+        devicePatternCheck(t.getPayload().getDevice());
+        datePatternCheck(t.getRequestDate());
+        emailPatternCheck(t.getNotificationEmail());
 
         // Generar un HashMap para guardar los objetos
         Gson gson = new Gson();
@@ -81,12 +81,13 @@ public class TokenManager extends FileManager implements ITokenManager {
 
         // Cargar el almacen de tokens request en memoria y añadir el nuevo si no existe
         HashMap<String, TokenRequest> clonedMap = makeClonedMap(gson, storePath);
-        if (clonedMap == null || !clonedMap.containsKey(TokenToVerify.getPayload().getDevice())) {
+        if (clonedMap == null || !clonedMap.containsKey(t.getPayload().getDevice())) {
             throw new TokenManagementException("Error: Token Request Not Previously Registered");
         }
     }
-
-    private Token checkJsonStruct(JsonObject jsonLicense) throws TokenManagementException {
+    
+    @Override
+    public void checkJsonStruct(JsonObject jsonLicense) throws TokenManagementException {
         String tokenRquest = "";
         String email = "";
         String date = "";
@@ -97,25 +98,25 @@ public class TokenManager extends FileManager implements ITokenManager {
         } catch (Exception pe) {
             throw new TokenManagementException("Error: invalid input data in JSON structure.");
         }
-        return makeToken(tokenRquest, date, email);
+        t = makeToken(tokenRquest, date, email);
     }
-
+    
     private Token makeToken(String tokenRquest, String date, String email) {
         return new Token(tokenRquest, date, email);
     }
 
-    private void insertTokenSignature(Token myToken) throws TokenManagementException {
-        String input = myToken.getHeader().toString() + myToken.getPayload().toString();
+    private void insertTokenSignature() throws TokenManagementException {
+        String input = t.getHeader().toString() + t.getPayload().toString();
         GenericHasher myHash = new SHA256Hash();
         String signature = myHash.hash(input);
-        myToken.setSignature(signature);
+        t.setSignature(signature);
     }
 
-    private void insertTokenValue(Token myToken) {
-        String stringToEncode = myToken.getHeader().toString() + myToken.getPayload().toString()
-                + myToken.getSignature();
+    private void insertTokenValue() {
+        String stringToEncode = t.getHeader().toString() + t.getPayload().toString()
+                + t.getSignature();
         String encodedString = Base64.getUrlEncoder().encodeToString(stringToEncode.getBytes());
-        myToken.setTokenValue(encodedString);
+        t.setTokenValue(encodedString);
     }
 
 }

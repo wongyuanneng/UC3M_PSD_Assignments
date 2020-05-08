@@ -10,11 +10,42 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
+import Transport4Future.TokenManagement.Control.TokensStoreManager;
 import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class TokensStore {
     private List<Token> tokensList;
-
+    private static TokensStore ts=null;
+    
+    private TokensStore() {
+        
+    }
+    
+    /**
+     * TokensStoreManager instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static TokensStore getInstance() {
+        if (ts == null) {
+            ts = new TokensStore();
+        }
+        else {
+            System.out.println("Cannot create object tokensStore because an object of class TokensStore already exists");
+        }
+        return ts;
+    }
+    
+    @Override
+    public TokensStore clone() {
+        try {
+            throw new CloneNotSupportedException();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("You cannot clone objects of this class.");
+        }
+        return null;
+    }
+    
     private void load() {
         try {
             JsonReader reader = new JsonReader(new FileReader(System.getProperty("user.dir") + "/Store/tokenStore.json"));

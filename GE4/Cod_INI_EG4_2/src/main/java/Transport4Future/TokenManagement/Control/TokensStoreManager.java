@@ -43,7 +43,7 @@ public class TokensStoreManager implements ITokensStoreManager {
      * @throws TokenManagementException if any error occurs
      */
     public boolean verifyToken(String Token) throws TokenManagementException{
-        TokensStore myStore = new TokensStore();
+        TokensStore myStore = TokensStore.getInstance();
         Token tokenFound = myStore.find(Token);
 
         if (tokenFound!=null) {

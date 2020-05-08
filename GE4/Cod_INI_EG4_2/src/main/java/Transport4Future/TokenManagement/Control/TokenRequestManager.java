@@ -12,6 +12,7 @@ import Transport4Future.TokenManagement.Utils.TokenManagementException;
 public class TokenRequestManager extends FileManager implements ITokenRequestManager {
     
     private static TokenRequestManager trm=null;
+    private static TokenRequest tr=null;
     
     private TokenRequestManager() {
         
@@ -51,29 +52,27 @@ public class TokenRequestManager extends FileManager implements ITokenRequestMan
         String fileContents = inputFileCheck(InputFile);
         JsonObject jsonLicense = createJsonLicense(fileContents);
 
-        TokenRequest req = null;
-        req = checkJsonStruct(jsonLicense);
-        
-        checkInitialTokenInformationFormat(req);
+        checkJsonStruct(jsonLicense);
+        checkInformationFormat();
         
         GenericHasher myHash = new MD5Hash("Stardust-");
-        String hex = myHash.hash(req.toString());
-        saveTokenReqStore(req, hex);
+        String hex = myHash.hash(tr.toString());
+        saveTokenReqStore(hex);
         //Devolver el hash
         return hex;
     }
 
-    private void checkInitialTokenInformationFormat(TokenRequest Request) throws TokenManagementException {
+    public void checkInformationFormat() throws TokenManagementException {
         //before to that I have to check that all the fields are correct
-        deviceNameLengthCheck(Request.getDeviceName());
-        serialNumPatternCheck(Request.getSerialNumber());
-        driverVerLengthCheck(Request.getDriverVersion());
-        emailPatternCheck(Request.getSupportEMail());
-        licenseRequestCheck(Request.getTypeOfDevice());
-        macAddressCheck(Request.getMacAddress());
+        deviceNameLengthCheck(tr.getDeviceName());
+        serialNumPatternCheck(tr.getSerialNumber());
+        driverVerLengthCheck(tr.getDriverVersion());
+        emailPatternCheck(tr.getSupportEMail());
+        licenseRequestCheck(tr.getTypeOfDevice());
+        macAddressCheck(tr.getMacAddress());
     }
 
-    private TokenRequest checkJsonStruct(JsonObject jsonLicense) throws TokenManagementException {
+    public void checkJsonStruct(JsonObject jsonLicense) throws TokenManagementException {
         String deviceName = "";
         String typeOfDevice = "";
         String driverVersion = "";
@@ -90,21 +89,21 @@ public class TokenRequestManager extends FileManager implements ITokenRequestMan
         } catch (Exception pe) {
             throw new TokenManagementException("Error: invalid input data in JSON structure.");
         }
-        return makeTokenRequest(deviceName, typeOfDevice, driverVersion, supportEMail, serialNumber, macAddress);
+        tr = makeTokenRequest(deviceName, typeOfDevice, driverVersion, supportEMail, serialNumber, macAddress);
     }
 
     private TokenRequest makeTokenRequest(String deviceName, String typeOfDevice, String driverVersion, String supportEMail, String serialNumber, String macAddress) {
         return new TokenRequest(deviceName, typeOfDevice, driverVersion, supportEMail, serialNumber, macAddress);
     }
 
-    private void saveTokenReqStore(TokenRequest req, String hex) throws TokenManagementException {
+    private void saveTokenReqStore(String hex) throws TokenManagementException {
         FileWriter fileWriter;
 
         //Generar un HashMap para guardar los objetos
         String storePath = System.getProperty("user.dir") + "/Store/tokenRequestsStore.json";
 
         //Tengo que cargar el almacen de tokens request en memoria y añadir el nuevo si no existe
-        String jsonString = createJsonString(req, hex, storePath);
+        String jsonString = createJsonString(tr, hex, storePath);
         try {
             fileWriter = new FileWriter(storePath);
             fileWriter.write(jsonString);
