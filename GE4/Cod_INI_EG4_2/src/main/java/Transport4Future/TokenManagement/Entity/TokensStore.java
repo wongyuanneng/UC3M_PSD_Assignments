@@ -13,28 +13,7 @@ import com.google.gson.stream.JsonReader;
 import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 
 public class TokensStore {
-    private static TokensStore ts = null;
-    
     private List<Token> tokensList;
-    
-    public TokensStore() {
-        
-    }
-    
-    /**
-     * TokensStore instantiation for Singleton implementation
-     *
-     * 
-     */
-    public static TokensStore getInstance() {
-        if (ts == null) {
-            ts = new TokensStore();
-        }
-        else {
-            System.out.println("Cannot create object tokensStore because an object of class TokensStore already exists");
-        }
-        return ts;
-    }
 
     private void load() {
         try {

@@ -3,8 +3,6 @@ package Transport4Future.TokenManagement.Entity;
 import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 
 public class Header {
-    private static Header h = null;
-    
     private String alg;
     private String typ;
 
@@ -27,20 +25,6 @@ public class Header {
         super();
         this.alg = alg;
         this.typ = typ;
-    }
-    
-    /**
-     * Header instantiation for Singleton implementation
-     *
-     * 
-     */
-    public static Header getHeaderInstance(String alg, String typ) {
-        if (h == null) {
-            h = new Header(alg, typ);
-        } else {
-            System.out.println("Cannot create object (" + alg + ", " + typ + ") because an object of class Header already exists");
-        }
-        return h;
     }
 
     public String getAlg() {

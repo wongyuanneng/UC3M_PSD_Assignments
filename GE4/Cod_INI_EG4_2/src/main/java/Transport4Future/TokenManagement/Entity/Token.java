@@ -1,8 +1,6 @@
 package Transport4Future.TokenManagement.Entity;
 
 public class Token {
-    private static Token t = null;
-    
     private Header header;
     private Payload payload;
     private String signature;
@@ -24,21 +22,6 @@ public class Token {
         // SOLO PARA PRUEBAS
         this.signature = null;
         this.tokenValue = null;
-    }
-    
-    /**
-     * Token instantiation for Singleton implementation
-     *
-     * 
-     */
-    public static Token getInstance(String device, String requestDate, String notificationEmail) {
-        if (t == null) {
-            t = new Token(device, requestDate, notificationEmail);
-        }
-        else {
-            System.out.println("Cannot create object (" + device+ ", " + requestDate+ ", " + notificationEmail + ") because an object of class Token already exists");
-        }
-        return t;
     }
     
     public String getRequestDate() {

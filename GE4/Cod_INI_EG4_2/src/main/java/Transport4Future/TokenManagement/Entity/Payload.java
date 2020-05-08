@@ -7,8 +7,6 @@ import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 
 
 public class Payload {
-    private static Payload p=null;
-    
     private String device;
     private long iat;
     private long exp;
@@ -28,21 +26,6 @@ public class Payload {
             this.exp = this.iat + 60480000000l;
         }
         //this.iat = System.currentTimeMillis();
-    }
-    
-    /**
-     * Payload instantiation for Singleton implementation
-     *
-     * 
-     */
-    public static Payload getPayloadInstance(String device) {
-        if (p == null) {
-            p = new Payload(device);
-        }
-        else {
-            System.out.println("Cannot create object " + device + " because an object of class Payload already exists");
-        }
-        return p;
     }
     
     public String getDevice() {
