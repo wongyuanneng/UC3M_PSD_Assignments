@@ -14,12 +14,16 @@ public class TokenManager extends FileManager implements ITokenManager {
     
     private static TokenManager tm=null;
     
+    private TokenManager() {
+        
+    }
+    
     /**
      * TokenManager instantiation for Singleton implementation
      *
      * 
      */
-    public static TokenManager getTokenManagerInstance() {
+    public static TokenManager getInstance() {
         if (tm == null) {
             tm = new TokenManager();
         }
@@ -27,6 +31,16 @@ public class TokenManager extends FileManager implements ITokenManager {
             System.out.println("Cannot create object tokenManager because an object of class TokenManager already exists");
         }
         return tm;
+    }
+    
+    @Override
+    public TokenManager clone() {
+        try {
+            throw new CloneNotSupportedException();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("You cannot clone objects of this class.");
+        }
+        return null;
     }
     
     /**

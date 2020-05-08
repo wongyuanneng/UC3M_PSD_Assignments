@@ -4,19 +4,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.json.JsonObject;
 
-import Transport4Future.TokenManagement.Boundary.TokenManagementException;
-import Transport4Future.TokenManagement.Entity.TokenRequest;
+import Transport4Future.TokenManagement.Boundary.*;
+import Transport4Future.TokenManagement.Entity.*;
 
 public class TokenRequestManager extends FileManager implements ITokenRequestManager {
     
     private static TokenRequestManager trm=null;
     
+    private TokenRequestManager() {
+        
+    }
+    
     /**
-     * FileManager instantiation for Singleton implementation
+     * TokenRequestManager instantiation for Singleton implementation
      *
      * 
      */
-    public static TokenRequestManager getTokenRequestManagerInstance() {
+    public static TokenRequestManager getInstance() {
         if (trm == null) {
             trm = new TokenRequestManager();
         }
@@ -24,6 +28,16 @@ public class TokenRequestManager extends FileManager implements ITokenRequestMan
             System.out.println("Cannot create object tokenRequestManager because an object of class TokenRequestManager already exists");
         }
         return trm;
+    }
+    
+    @Override
+    public TokenRequestManager clone() {
+        try {
+            throw new CloneNotSupportedException();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("You cannot clone objects of this class.");
+        }
+        return null;
     }
     
     /**

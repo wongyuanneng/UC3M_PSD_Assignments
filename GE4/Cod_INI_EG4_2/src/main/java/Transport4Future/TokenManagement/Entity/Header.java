@@ -28,15 +28,7 @@ public class Header {
         this.alg = alg;
         this.typ = typ;
     }
-
-    public String getAlg() {
-        return alg;
-    }
-
-    public String getTyp() {
-        return typ;
-    }
-
+    
     /**
      * Header instantiation for Singleton implementation
      *
@@ -49,6 +41,14 @@ public class Header {
             System.out.println("Cannot create object (" + alg + ", " + typ + ") because an object of class Header already exists");
         }
         return h;
+    }
+
+    public String getAlg() {
+        return alg;
+    }
+
+    public String getTyp() {
+        return typ;
     }
 
     /**

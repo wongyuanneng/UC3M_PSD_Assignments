@@ -29,19 +29,7 @@ public class Payload {
         }
         //this.iat = System.currentTimeMillis();
     }
-
-    public String getDevice() {
-        return device;
-    }
-
-    public long getIat() {
-        return iat;
-    }
-
-    public long getExp() {
-        return exp;
-    }
-
+    
     /**
      * Payload instantiation for Singleton implementation
      *
@@ -55,6 +43,18 @@ public class Payload {
             System.out.println("Cannot create object " + device + " because an object of class Payload already exists");
         }
         return p;
+    }
+    
+    public String getDevice() {
+        return device;
+    }
+
+    public long getIat() {
+        return iat;
+    }
+
+    public long getExp() {
+        return exp;
     }
     
     /**

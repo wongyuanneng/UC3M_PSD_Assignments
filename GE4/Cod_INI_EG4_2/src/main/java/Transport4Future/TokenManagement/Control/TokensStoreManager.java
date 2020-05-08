@@ -8,12 +8,16 @@ public class TokensStoreManager implements ITokensStoreManager {
     
     private static TokensStoreManager tsm=null;
     
+    private TokensStoreManager() {
+        
+    }
+    
     /**
-     * FileManager instantiation for Singleton implementation
+     * TokensStoreManager instantiation for Singleton implementation
      *
      * 
      */
-    public static TokensStoreManager getTokensStoreManagerInstance() {
+    public static TokensStoreManager getInstance() {
         if (tsm == null) {
             tsm = new TokensStoreManager();
         }
@@ -21,6 +25,16 @@ public class TokensStoreManager implements ITokensStoreManager {
             System.out.println("Cannot create object tokensStoreManager because an object of class TokensStoreManager already exists");
         }
         return tsm;
+    }
+    
+    @Override
+    public TokensStoreManager clone() {
+        try {
+            throw new CloneNotSupportedException();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("You cannot clone objects of this class.");
+        }
+        return null;
     }
     
     /**

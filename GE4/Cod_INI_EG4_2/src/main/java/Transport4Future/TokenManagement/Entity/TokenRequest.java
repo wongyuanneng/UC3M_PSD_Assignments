@@ -25,7 +25,22 @@ public class TokenRequest {
         this.serialNumber = serialNumber;
         this.macAddress = macAddress;
     }
-
+    
+    /**
+     * TokenRequest instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static TokenRequest getInstance(String deviceName, String typeOfDevice, String driverVersion, String supportEMail, String serialNumber, String macAddress) {
+        if (tr == null) {
+            tr = new TokenRequest(deviceName, typeOfDevice, driverVersion, supportEMail, serialNumber, macAddress);
+        }
+        else {
+            System.out.println("Cannot create object (" + deviceName + ", " + typeOfDevice + ", " + driverVersion + ", " + supportEMail + ", " + serialNumber + ", " + macAddress + ") because an object of class TokenRequest already exists");
+        }
+        return tr;
+    }
+    
     public String getDeviceName() {
         return deviceName;
     }
@@ -48,21 +63,6 @@ public class TokenRequest {
 
     public String getMacAddress() {
         return macAddress;
-    }
-    
-    /**
-     * TokenRequest instantiation for Singleton implementation
-     *
-     * 
-     */
-    public static TokenRequest getTokenRequestInstance(String deviceName, String typeOfDevice, String driverVersion, String supportEMail, String serialNumber, String macAddress) {
-        if (tr == null) {
-            tr = new TokenRequest(deviceName, typeOfDevice, driverVersion, supportEMail, serialNumber, macAddress);
-        }
-        else {
-            System.out.println("Cannot create object (" + deviceName + ", " + typeOfDevice + ", " + driverVersion + ", " + supportEMail + ", " + serialNumber + ", " + macAddress + ") because an object of class TokenRequest already exists");
-        }
-        return tr;
     }
 
     @Override

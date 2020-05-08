@@ -18,8 +18,8 @@ class VerifyTokenTest {
     private TokenManager tokenManager;
 
     public VerifyTokenTest () {
-        tokensStoreManager = new TokensStoreManager();
-        tokenManager = new TokenManager();
+        tokensStoreManager = TokensStoreManager.getInstance();
+        tokenManager = TokenManager.getInstance();
     }
 
     private void resetTokenStore () throws TokenManagementException {

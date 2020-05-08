@@ -26,12 +26,16 @@ public class FileManager {
     
     private static FileManager fm=null;
     
+    public FileManager() {
+        
+    }
+    
     /**
      * FileManager instantiation for Singleton implementation
      *
      * 
      */
-    public static FileManager getFileManagerInstance() {
+    public static FileManager getInstance() {
         if (fm == null) {
             fm = new FileManager();
         }
@@ -39,6 +43,16 @@ public class FileManager {
             System.out.println("Cannot create object fileManager because an object of class FileManager already exists");
         }
         return fm;
+    }
+    
+    @Override
+    public FileManager clone() {
+        try {
+            throw new CloneNotSupportedException();
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("You cannot clone objects of this class.");
+        }
+        return null;
     }
     
     /**

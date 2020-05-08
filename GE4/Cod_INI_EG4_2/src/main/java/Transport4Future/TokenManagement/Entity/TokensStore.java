@@ -17,12 +17,16 @@ public class TokensStore {
     
     private List<Token> tokensList;
     
+    public TokensStore() {
+        
+    }
+    
     /**
      * TokensStore instantiation for Singleton implementation
      *
      * 
      */
-    public static TokensStore getTokensStoreInstance() {
+    public static TokensStore getInstance() {
         if (ts == null) {
             ts = new TokensStore();
         }

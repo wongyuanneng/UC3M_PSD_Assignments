@@ -25,7 +25,22 @@ public class Token {
         this.signature = null;
         this.tokenValue = null;
     }
-
+    
+    /**
+     * Token instantiation for Singleton implementation
+     *
+     * 
+     */
+    public static Token getInstance(String device, String requestDate, String notificationEmail) {
+        if (t == null) {
+            t = new Token(device, requestDate, notificationEmail);
+        }
+        else {
+            System.out.println("Cannot create object (" + device+ ", " + requestDate+ ", " + notificationEmail + ") because an object of class Token already exists");
+        }
+        return t;
+    }
+    
     public String getRequestDate() {
         return requestDate;
     }
@@ -57,19 +72,4 @@ public class Token {
     public String getTokenValue() {
         return this.tokenValue;
     }	
-    
-    /**
-     * Token instantiation for Singleton implementation
-     *
-     * 
-     */
-    public static Token getTokenInstance(String device, String requestDate, String notificationEmail) {
-        if (t == null) {
-            t = new Token(device, requestDate, notificationEmail);
-        }
-        else {
-            System.out.println("Cannot create object (" + device+ ", " + requestDate+ ", " + notificationEmail + ") because an object of class Token already exists");
-        }
-        return t;
-    }
 }
