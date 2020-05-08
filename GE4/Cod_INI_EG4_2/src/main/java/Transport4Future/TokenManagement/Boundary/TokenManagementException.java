@@ -1,4 +1,4 @@
-package Transport4Future.TokenManagement;
+package Transport4Future.TokenManagement.Boundary;
 
 public class TokenManagementException extends Exception {
     private static final long serialVersionUID = 1L;

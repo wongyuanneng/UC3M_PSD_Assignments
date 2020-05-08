@@ -1,9 +1,14 @@
-package Transport4Future.TokenManagement;
+package Transport4Future.TokenManagement.Control;
 
 import java.util.Base64;
 import java.util.HashMap;
 import javax.json.JsonObject;
 import com.google.gson.Gson;
+
+import Transport4Future.TokenManagement.Boundary.TokenManagementException;
+import Transport4Future.TokenManagement.Entity.Token;
+import Transport4Future.TokenManagement.Entity.TokenRequest;
+import Transport4Future.TokenManagement.Entity.TokensStore;
 
 public class TokenManager extends FileManager implements ITokenManager {
     

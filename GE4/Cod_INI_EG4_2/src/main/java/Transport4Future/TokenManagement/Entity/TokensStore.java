@@ -1,4 +1,4 @@
-package Transport4Future.TokenManagement;
+package Transport4Future.TokenManagement.Entity;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,6 +9,8 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+
+import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 
 public class TokensStore {
     private static TokensStore ts = null;

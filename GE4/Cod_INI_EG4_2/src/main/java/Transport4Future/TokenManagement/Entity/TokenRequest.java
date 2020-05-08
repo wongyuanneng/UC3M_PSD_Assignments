@@ -1,4 +1,6 @@
-package Transport4Future.TokenManagement;
+package Transport4Future.TokenManagement.Entity;
+
+import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 
 public class TokenRequest {
     private static TokenRequest tr = null;

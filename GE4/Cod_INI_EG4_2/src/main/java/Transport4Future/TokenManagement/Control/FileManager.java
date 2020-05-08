@@ -1,4 +1,4 @@
-package Transport4Future.TokenManagement;
+package Transport4Future.TokenManagement.Control;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -18,6 +18,9 @@ import javax.json.JsonObject;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import Transport4Future.TokenManagement.Boundary.TokenManagementException;
+import Transport4Future.TokenManagement.Entity.TokenRequest;
 
 public class FileManager {
     

@@ -1,4 +1,4 @@
-package Transport4Future.TokenManagement;
+package Transport4Future.TokenManagement.Entity;
 
 public class Token {
     private static Token t = null;
