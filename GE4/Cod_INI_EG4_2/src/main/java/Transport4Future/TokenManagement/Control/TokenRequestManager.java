@@ -4,8 +4,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.json.JsonObject;
 
-import Transport4Future.TokenManagement.Boundary.*;
 import Transport4Future.TokenManagement.Entity.*;
+import Transport4Future.TokenManagement.Utils.GenericHasher;
+import Transport4Future.TokenManagement.Utils.MD5Hash;
+import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class TokenRequestManager extends FileManager implements ITokenRequestManager {
     
@@ -51,10 +53,11 @@ public class TokenRequestManager extends FileManager implements ITokenRequestMan
 
         TokenRequest req = null;
         req = checkJsonStruct(jsonLicense);
-
+        
         checkInitialTokenInformationFormat(req);
-        String input =  "Stardust" + "-" + req.toString();
-        String hex = hashEncoding(input, "MD5");
+        
+        GenericHasher myHash = new MD5Hash("Stardust-");
+        String hex = myHash.hash(req.toString());
         saveTokenReqStore(req, hex);
         //Devolver el hash
         return hex;

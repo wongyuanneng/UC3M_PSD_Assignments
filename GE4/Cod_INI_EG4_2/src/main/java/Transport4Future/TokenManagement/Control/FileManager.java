@@ -6,10 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Type;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -19,8 +15,8 @@ import javax.json.JsonObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 import Transport4Future.TokenManagement.Entity.TokenRequest;
+import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class FileManager {
     
@@ -253,36 +249,6 @@ public class FileManager {
             throw new TokenManagementException("Error: unable to recover Token Requests Store.");
         }
         return clonedMap;
-    }
-
-
-
-    /**
-     * Hashes an input string according to the specified algorithm (MD5/SHA-256).
-     *
-     * @throws TokenManagementException if any error occurs
-     */
-    public String hashEncoding(String input, String algo) throws TokenManagementException {
-        MessageDigest md = getHashAlgo(algo);
-
-        md.update(input.getBytes(StandardCharsets.UTF_8));
-        byte[] digest = md.digest();
-
-        String hex = null;
-        // Beware the hex length. If MD5 -> 32:"%032x", but for instance, in SHA-256 it should be "%064x" 
-        //md.getDigestLength() is in number of Bytes, and since required int is number of Hex-digits, thus multiply by 2.
-        hex = String.format("%"+md.getDigestLength()*2+"x", new BigInteger(1, digest));
-        return hex;
-    }
-
-    private MessageDigest getHashAlgo(String algo) throws TokenManagementException {
-        MessageDigest md;
-        try {
-            md = MessageDigest.getInstance(algo);
-        } catch (NoSuchAlgorithmException e) {
-            throw new TokenManagementException("Error: no such hashing algorithm.");
-        }
-        return md;
     }
 
 }

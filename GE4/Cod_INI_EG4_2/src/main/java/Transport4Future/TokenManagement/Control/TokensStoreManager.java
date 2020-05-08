@@ -1,8 +1,8 @@
 package Transport4Future.TokenManagement.Control;
 
-import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 import Transport4Future.TokenManagement.Entity.Token;
 import Transport4Future.TokenManagement.Entity.TokensStore;
+import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class TokensStoreManager implements ITokensStoreManager {
     

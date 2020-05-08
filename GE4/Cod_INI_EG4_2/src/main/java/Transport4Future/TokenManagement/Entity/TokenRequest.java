@@ -1,6 +1,6 @@
 package Transport4Future.TokenManagement.Entity;
 
-import Transport4Future.TokenManagement.Boundary.TokenManagementException;
+import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class TokenRequest {
     private String deviceName;

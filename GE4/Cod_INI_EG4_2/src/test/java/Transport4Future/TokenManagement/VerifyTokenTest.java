@@ -9,9 +9,9 @@ import java.io.IOException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 import Transport4Future.TokenManagement.Control.TokenManager;
 import Transport4Future.TokenManagement.Control.TokensStoreManager;
+import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 class VerifyTokenTest {
     private TokensStoreManager tokensStoreManager;

@@ -1,4 +1,4 @@
-package Transport4Future.TokenManagement.Control;
+package Transport4Future.TokenManagement.Boundary;
 
 import Transport4Future.TokenManagement.Utils.TokenManagementException;
 

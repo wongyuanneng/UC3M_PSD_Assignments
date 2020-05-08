@@ -7,8 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 import Transport4Future.TokenManagement.Control.TokenRequestManager;
+import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class TokenRequestGenerationTest {
     private TokenRequestManager myManager;

@@ -5,10 +5,12 @@ import java.util.HashMap;
 import javax.json.JsonObject;
 import com.google.gson.Gson;
 
-import Transport4Future.TokenManagement.Boundary.TokenManagementException;
 import Transport4Future.TokenManagement.Entity.Token;
 import Transport4Future.TokenManagement.Entity.TokenRequest;
 import Transport4Future.TokenManagement.Entity.TokensStore;
+import Transport4Future.TokenManagement.Utils.GenericHasher;
+import Transport4Future.TokenManagement.Utils.SHA256Hash;
+import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class TokenManager extends FileManager implements ITokenManager {
     
@@ -104,7 +106,8 @@ public class TokenManager extends FileManager implements ITokenManager {
 
     private void insertTokenSignature(Token myToken) throws TokenManagementException {
         String input = myToken.getHeader().toString() + myToken.getPayload().toString();
-        String signature = hashEncoding(input, "SHA-256");
+        GenericHasher myHash = new SHA256Hash();
+        String signature = myHash.hash(input);
         myToken.setSignature(signature);
     }
 
