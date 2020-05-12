@@ -10,15 +10,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import Transport4Future.TokenManagement.Control.TokenManager;
-import Transport4Future.TokenManagement.Control.TokensStoreManager;
 import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 class VerifyTokenTest {
-    private TokensStoreManager tokensStoreManager;
     private TokenManager tokenManager;
 
     public VerifyTokenTest () {
-        tokensStoreManager = TokensStoreManager.getInstance();
         tokenManager = TokenManager.getInstance();
     }
 
@@ -49,7 +46,7 @@ class VerifyTokenTest {
     void verifyTokenEmptyTokenStore() throws TokenManagementException {
         this.resetTokenStore();
         String tokenToVerify = "ABxnPUhTMjU2XG4gVHlwPVBEU1xuRGV2PTI3OGU3ZTI3NzMyYzRlNTM5NDZjZjIwMDU4YWQ4MTM4XG4gaWF0PTE4LTAzLTIwMjAgMTA6MjI6MjBcbiBleHA9MjUtMDMtMjAyMCAxMDoyMjoyMGIzYWMwYjRkNjQyOTE1OGRhMTI4NzYxZTk4Y2U4MzE3ZmE5MjhkNDJjNzEwYTlkMDZmNjRjOTY2N2JkZDM3MWM=\"";
-        boolean result = tokensStoreManager.verifyToken(tokenToVerify);
+        boolean result = tokenManager.verifyToken(tokenToVerify);
         assertEquals (false,result);
     }
 
@@ -58,7 +55,7 @@ class VerifyTokenTest {
     void verifyTokenNonExistingToken() throws TokenManagementException {
         this.insertFirstToken();
         String tokenToVerify = "ABxnPUhTMjU2XG4gVHlwPVBEU1xuRGV2PTI3OGU3ZTI3NzMyYzRlNTM5NDZjZjIwMDU4YWQ4MTM4XG4gaWF0PTE4LTAzLTIwMjAgMTA6MjI6MjBcbiBleHA9MjUtMDMtMjAyMCAxMDoyMjoyMGIzYWMwYjRkNjQyOTE1OGRhMTI4NzYxZTk4Y2U4MzE3ZmE5MjhkNDJjNzEwYTlkMDZmNjRjOTY2N2JkZDM3MWM=\"";
-        boolean result = tokensStoreManager.verifyToken(tokenToVerify);
+        boolean result = tokenManager.verifyToken(tokenToVerify);
         assertEquals (false,result);
     }
 
@@ -67,7 +64,7 @@ class VerifyTokenTest {
     void verifyTokenCorrectTest() throws TokenManagementException {
         this.insertFirstToken();
         String tokenToVerify = "QWxnPUhTMjU2XG4gVHlwPVBEU1xuRGV2PTI3OGU3ZTI3NzMyYzRlNTM5NDZjZjIwMDU4YWQ4MTM4XG4gaWF0PTE4LTAzLTIwMjAgMTA6MjI6MjBcbiBleHA9MjUtMDMtMjAyMCAxMDoyMjoyMGIzYWMwYjRkNjQyOTE1OGRhMTI4NzYxZTk4Y2U4MzE3ZmE5MjhkNDJjNzEwYTlkMDZmNjRjOTY2N2JkZDM3MWM=\"";
-        boolean result = tokensStoreManager.verifyToken(tokenToVerify);
+        boolean result = tokenManager.verifyToken(tokenToVerify);
         assertEquals (false,result);
     }
 
@@ -78,7 +75,7 @@ class VerifyTokenTest {
         File file = new File(storePath);
         file.delete();
         String tokenToVerify = "ABxnPUhTMjU2XG4gVHlwPVBEU1xuRGV2PTI3OGU3ZTI3NzMyYzRlNTM5NDZjZjIwMDU4YWQ4MTM4XG4gaWF0PTE4LTAzLTIwMjAgMTA6MjI6MjBcbiBleHA9MjUtMDMtMjAyMCAxMDoyMjoyMGIzYWMwYjRkNjQyOTE1OGRhMTI4NzYxZTk4Y2U4MzE3ZmE5MjhkNDJjNzEwYTlkMDZmNjRjOTY2N2JkZDM3MWM=";
-        boolean result = tokensStoreManager.verifyToken(tokenToVerify);
+        boolean result = tokenManager.verifyToken(tokenToVerify);
         assertEquals (false,result);
     }
 
@@ -88,7 +85,7 @@ class VerifyTokenTest {
         this.insertFirstToken();
         this.insertSecondToken();
         String tokenToVerify = "QWxnPUhTMjU2XG4gVHlwPVBEU1xuRGV2PTU3NjU5YmIwOTc4ZDQxMGIzYjc4YTg5MmM2MDRjY2I0XG4gaWF0PTE4LTAzLTIwMjAgMTc6MjI6MjBcbiBleHA9MTYtMDItMjAyMiAxNzoyMjoyMDdlNjY3Mzg2ZDNlNWMzOGIyZDY3NTNlYWI3MDM2ZTBlYmE1ZGViMTExNTQzMWM4Y2MyZjdmYmE3MTFkOTk3MjA=";
-        boolean result = tokensStoreManager.verifyToken(tokenToVerify);
+        boolean result = tokenManager.verifyToken(tokenToVerify);
         assertEquals (true,result);
     }
 }

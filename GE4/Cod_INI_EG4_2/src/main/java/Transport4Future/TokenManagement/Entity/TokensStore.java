@@ -10,15 +10,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
-import Transport4Future.TokenManagement.Control.TokensStoreManager;
+import Transport4Future.TokenManagement.Entity.Token;
 import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class TokensStore {
-    private List<Token> tokensList;
     private static TokensStore ts=null;
     
+    private List<Token> tokensList=null;
+    
     private TokensStore() {
-        
+
     }
     
     /**
@@ -45,6 +46,10 @@ public class TokensStore {
         }
         return null;
     }
+    
+    //public String getStorePath() {
+    //    return storePath;
+    //}
     
     private void load() {
         try {
@@ -102,4 +107,5 @@ public class TokensStore {
         }
         return result;
     }
+
 }

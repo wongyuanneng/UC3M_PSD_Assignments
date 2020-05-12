@@ -7,14 +7,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
-import Transport4Future.TokenManagement.Control.TokenRequestManager;
+import Transport4Future.TokenManagement.Control.TokenManager;
 import Transport4Future.TokenManagement.Utils.TokenManagementException;
 
 public class TokenRequestGenerationTest {
-    private TokenRequestManager myManager;
+    private TokenManager myManager;
 
     public TokenRequestGenerationTest () {
-        myManager = TokenRequestManager.getInstance();
+        myManager = TokenManager.getInstance();
     }
 
     @DisplayName ("Invalid Test Cases")

@@ -13,11 +13,13 @@ public class Payload {
 
     /**
      * Payload constructor
+     * @throws TokenManagementException 
      *
      * 
      */
-    public Payload(String device) {
-        this.device = device;
+    public Payload(String device) throws TokenManagementException {
+        Device d = new Device(device);
+        this.device = d.getData();
         this.iat = 1584523340892l;
         if ((this.device.startsWith("4"))){
             this.exp = this.iat + 604800000l;
@@ -79,7 +81,7 @@ public class Payload {
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-        return	"Dev=" + this.device 
+        return	"Dev=" + this.device
                 + "\\n iat=" + df.format(iatDate)
                 + "\\n exp=" + df.format(expDate);
     }
