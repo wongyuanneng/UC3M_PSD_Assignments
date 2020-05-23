@@ -24,7 +24,7 @@ public class Token {
 	private long iat;
 	private long exp;
 	private String signature;
-	private String tokenValue;
+	//private String tokenValue;
 	
 	public Token (String FileName) throws TokenManagementException {
 		TokenParser myParser = new TokenParser();
@@ -39,7 +39,7 @@ public class Token {
 		// SOLO PARA PRUEBAS
 		testIATEXP();
 		this.signature = this.generateSignature();
-		this.tokenValue = this.setTokenValue();
+		//this.tokenValue = this.setTokenValue();
 		Store();
 	}
 
@@ -53,8 +53,10 @@ public class Token {
 	}
 
 	public boolean Decode (String TokenStringRepresentation) {
+		byte[] decodedBytes = Base64.getUrlDecoder().decode(TokenStringRepresentation);
+		String decodedToken = new String(decodedBytes);
 		TokensStore myStore = TokensStore.getInstance();		
-		Token tokenFound = myStore.Find(TokenStringRepresentation);
+		Token tokenFound = myStore.Find(decodedToken);
 		
 		if (tokenFound != null) {
 			this.alg = tokenFound.alg;
@@ -65,7 +67,7 @@ public class Token {
 			this.iat = tokenFound.iat;
 			this.exp = tokenFound.exp;
 			this.signature = tokenFound.signature;
-			this.tokenValue = tokenFound.tokenValue;
+			//this.tokenValue = tokenFound.tokenValue;
 			return true;
 		}
 		else{
@@ -135,11 +137,11 @@ public class Token {
 		return this.signature;
 	}
 	
-	public String getTokenValue() {
-		return this.tokenValue;
-	}	
+	//public String getTokenValue() {
+	//	return this.tokenValue;
+	//}	
 	
-	private String setTokenValue() {
+	public String getTokenValue() {
 		String stringToEncode = this.getHeader() + this.getPayload() + this.getSignature();
 		String result  = Base64.getUrlEncoder().encodeToString(stringToEncode.getBytes());
 		return result;

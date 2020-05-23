@@ -12,10 +12,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
+import Transport4Future.TokenManagement.Store.TokensStore;
 
 class VerifyTokenTest {
 	private TokenManager myManager;
+	private String x;
 	
 	public VerifyTokenTest () {
 		 myManager = TokenManager.getInstance();
@@ -40,7 +43,7 @@ class VerifyTokenTest {
 	
 	private void insertSecondToken () throws TokenManagementException {
 		String InputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/SecondCorrectTokenRequest.json";
-		myManager.RequestToken(InputFile);		
+		this.x = myManager.RequestToken(InputFile);		
 	}
 	
 	@Test
