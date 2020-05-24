@@ -1,8 +1,17 @@
 package Transport4Future.TokenManagement;
 
+import java.util.HashMap;
+
 import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Data.TokenRequest;
+import Transport4Future.TokenManagement.Data.Attributes.DeviceName;
+import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
+import Transport4Future.TokenManagement.Data.Attributes.TypeOfDevice;
+import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
+import Transport4Future.TokenManagement.IO.RevocationParser;
+import Transport4Future.TokenManagement.IO.TokenRequestParser;
+import Transport4Future.TokenManagement.Store.TokensStore;
 
 public class TokenManager implements ITokenManagement {
 	
@@ -45,11 +54,30 @@ public class TokenManager implements ITokenManagement {
 	
 	public boolean VerifyToken (String TokenString) throws TokenManagementException{
 		Token token = new Token ();
-		if (token.Decode(TokenString)) {
+		String decodedValue = token.DecodeTokenValue(TokenString);
+		if (token.setDecoded(decodedValue)) {
 			return token.isValid();	
 		}
 		else {
 			return false;
 		}
+	}
+	
+	public String RevokeToken(String InputFile) throws TokenManagementException{
+		String email;
+		Token token = new Token ();
+		RevocationParser myParser = new RevocationParser();
+		HashMap<String, String> items = myParser.Parse(InputFile);
+		
+		String tokenValue = new String(items.get(RevocationParser.TOKEN_VALUE));
+		this.VerifyToken(tokenValue);
+		String decodedToken = token.DecodeTokenValue(tokenValue);
+		TokensStore myStore = TokensStore.getInstance();
+		Token tokenFound = myStore.Find(decodedToken);
+		TypeOfRevocation revocationType = new TypeOfRevocation(items.get(RevocationParser.TYPE_OF_REVOCATION));
+		RevocationReason revocationReason = new RevocationReason(items.get(RevocationParser.REASON));
+		tokenFound.setRevoked(revocationType, revocationReason);
+		email = tokenFound.getNotificationEmail();
+		return email;
 	}
 }

@@ -9,8 +9,11 @@ import java.util.HashMap;
 import Transport4Future.TokenManagement.Data.Attributes.Device;
 import Transport4Future.TokenManagement.Data.Attributes.EMail;
 import Transport4Future.TokenManagement.Data.Attributes.RequestDate;
+import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
+import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
 import Transport4Future.TokenManagement.IO.TokenParser;
+import Transport4Future.TokenManagement.IO.RevocationParser;
 import Transport4Future.TokenManagement.Store.TokensRequestStore;
 import Transport4Future.TokenManagement.Store.TokensStore;
 import Transport4Future.Utils.SHA256Hasher;
@@ -24,6 +27,9 @@ public class Token {
 	private long iat;
 	private long exp;
 	private String signature;
+	private boolean revoked;
+	private TypeOfRevocation revocationType;
+	private RevocationReason revocationReason;
 	//private String tokenValue;
 	
 	public Token (String FileName) throws TokenManagementException {
@@ -40,21 +46,28 @@ public class Token {
 		testIATEXP();
 		this.signature = this.generateSignature();
 		//this.tokenValue = this.setTokenValue();
+		this.revoked = false;
 		Store();
 	}
 
 	public Token() {
 
 	}
+	
 
 	private void Store() throws TokenManagementException {
 		TokensStore myStore = TokensStore.getInstance();
 		myStore.Add(this);
 	}
-
-	public boolean Decode (String TokenStringRepresentation) {
+	
+	
+	public String DecodeTokenValue (String TokenStringRepresentation) {
 		byte[] decodedBytes = Base64.getUrlDecoder().decode(TokenStringRepresentation);
 		String decodedToken = new String(decodedBytes);
+		return decodedToken;
+	}
+	
+	public boolean setDecoded (String decodedToken) {
 		TokensStore myStore = TokensStore.getInstance();		
 		Token tokenFound = myStore.Find(decodedToken);
 		
@@ -117,6 +130,10 @@ public class Token {
 			return false;
 		}
 	}
+	
+	public boolean isRevoked() {
+		return this.revoked;
+	}
 
 	public String getHeader () {
 		return	"Alg=" + this.alg + "\\n Typ=" + this.typ + "\\n";
@@ -150,4 +167,17 @@ public class Token {
 	public void setSignature(String value) {
 		this.signature = value;
 	}
+	
+	public void setRevoked(TypeOfRevocation type, RevocationReason reason) throws TokenManagementException{
+		if (this.isRevoked()){
+			throw new TokenManagementException("Error: Token previously revoked by this method.");
+		}
+		else {
+			this.revoked = true;
+			this.revocationType = type;
+			this.revocationReason = reason;
+		}
+	}
+
+	
 }
