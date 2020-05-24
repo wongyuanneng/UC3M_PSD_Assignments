@@ -161,6 +161,7 @@ public class Token {
 	public String getTokenValue() {
 		String stringToEncode = this.getHeader() + this.getPayload() + this.getSignature();
 		String result  = Base64.getUrlEncoder().encodeToString(stringToEncode.getBytes());
+		//System.out.println(result);
 		return result;
 	}
 	

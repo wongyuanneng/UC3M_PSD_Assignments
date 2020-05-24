@@ -26,9 +26,9 @@ public class TokensStore {
 		if (store == null) {
 			store = new TokensStore();
 		}
-/*		else {
-			System.out.println("There a Token Store object already created");
-		}*/
+		else {
+//			System.out.println("There a Token Store object already created");
+		}
 		return store;
 	}
 	
