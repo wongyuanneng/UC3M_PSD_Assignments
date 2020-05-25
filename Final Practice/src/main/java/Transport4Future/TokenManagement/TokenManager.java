@@ -73,7 +73,7 @@ public class TokenManager implements ITokenManagement {
 		HashMap<String, String> items = myParser.Parse(InputFile);
 		
 		TokenValue tokenValue = new TokenValue(items.get(RevocationParser.TOKEN_VALUE));
-		System.out.println(tokenValue.getValue());
+
 		this.VerifyToken(tokenValue.getValue());
 		String decodedToken = token.DecodeTokenValue(tokenValue.getValue());
 		TokensStore myStore = TokensStore.getInstance();
