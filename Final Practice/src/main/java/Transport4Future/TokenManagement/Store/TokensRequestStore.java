@@ -84,6 +84,12 @@ public class TokensRequestStore {
         }
 	}
 	
+	public TokenRequest GetRequest (String device) throws TokenManagementException {
+		TokensRequestStore requestStore = new TokensRequestStore();
+		HashMap<String, TokenRequest> clonedMap = requestStore.loadTokenRequestsRepository();
+        return clonedMap.get(device);
+	}
+	
 	private HashMap<String, TokenRequest> loadTokenRequestsRepository() {
 		//Generar un HashMap para guardar los objetos
 		//Tengo que cargar el almacen de tokens request en memoria y añadir el nuevo si no existe
