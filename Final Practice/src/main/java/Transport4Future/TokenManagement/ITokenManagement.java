@@ -10,7 +10,9 @@ public interface ITokenManagement {
 
 	boolean VerifyToken (String Token) throws TokenManagementException;
 
-	public String RevokeToken(String InputFile) throws TokenManagementException;
+	String RevokeToken(String InputFile) throws TokenManagementException;
+	
+	boolean ExecuteAction(String InputFile) throws TokenManagementException;
 		
 
 }

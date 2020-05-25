@@ -81,6 +81,11 @@ public class Token {
 			this.exp = tokenFound.exp;
 			this.signature = tokenFound.signature;
 			//this.tokenValue = tokenFound.tokenValue;
+			if (tokenFound.isRevoked()) {
+				this.revoked = true;
+				this.revocationReason = tokenFound.revocationReason;
+				this.revocationType = tokenFound.revocationType;
+			}
 			return true;
 		}
 		else{
@@ -108,6 +113,12 @@ public class Token {
         if (!myStore.Find(this.getDevice())) {
         	throw new TokenManagementException("Error: Token Request Not Previously Registered");
         }
+	}
+	
+	public TokenRequest getTokenRequestEmmision() throws TokenManagementException {
+		TokensRequestStore myStore = TokensRequestStore.getInstance(); 
+		this.checkTokenRequestEmmision();
+		return myStore.GetRequest(this.getDevice());
 	}
 	
 	public String getDevice() {

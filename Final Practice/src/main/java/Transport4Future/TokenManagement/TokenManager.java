@@ -9,8 +9,10 @@ import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
 import Transport4Future.TokenManagement.Data.Attributes.TokenValue;
 import Transport4Future.TokenManagement.Data.Attributes.TypeOfDevice;
 import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
+import Transport4Future.TokenManagement.Data.Attributes.TypeOfOperation;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
 import Transport4Future.TokenManagement.IO.RevocationParser;
+import Transport4Future.TokenManagement.IO.OperationParser;
 import Transport4Future.TokenManagement.IO.TokenRequestParser;
 import Transport4Future.TokenManagement.Store.TokensStore;
 
@@ -81,5 +83,28 @@ public class TokenManager implements ITokenManagement {
 		tokenFound.setRevoked(revocationType, revocationReason);
 		email = tokenFound.getNotificationEmail();
 		return email;
+	}
+	
+	
+	public boolean ExecuteAction(String InputFile) throws TokenManagementException{
+		Token token = new Token ();
+		OperationParser myParser = new OperationParser();
+		HashMap<String, String> items = myParser.Parse(InputFile);
+		TokenValue tokenValue = new TokenValue(items.get(OperationParser.TOKEN_VALUE));
+		this.VerifyToken(tokenValue.getValue());
+		String decodedToken = token.DecodeTokenValue(tokenValue.getValue());
+		if (!token.setDecoded(decodedToken)) {
+			return false;
+		}
+		TokenRequest tokenR = token.getTokenRequestEmmision();
+		TypeOfOperation opType = new TypeOfOperation(items.get(OperationParser.TYPE_OF_OPERATION));
+		
+		if (opType.getValue().equalsIgnoreCase("Check State") || opType.getValue().equalsIgnoreCase(tokenR.getTypeOfDevice()) || opType.getValue().equalsIgnoreCase(tokenR.getTypeOfDevice())) {
+			return true;
+		}
+		else {
+			throw new TokenManagementException("The device represented by the token cannot execute the requested operation.");
+		}
+
 	}
 }
