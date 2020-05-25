@@ -6,6 +6,7 @@ import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Data.TokenRequest;
 import Transport4Future.TokenManagement.Data.Attributes.DeviceName;
 import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
+import Transport4Future.TokenManagement.Data.Attributes.TokenValue;
 import Transport4Future.TokenManagement.Data.Attributes.TypeOfDevice;
 import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
@@ -69,9 +70,10 @@ public class TokenManager implements ITokenManagement {
 		RevocationParser myParser = new RevocationParser();
 		HashMap<String, String> items = myParser.Parse(InputFile);
 		
-		String tokenValue = new String(items.get(RevocationParser.TOKEN_VALUE));
-		this.VerifyToken(tokenValue);
-		String decodedToken = token.DecodeTokenValue(tokenValue);
+		TokenValue tokenValue = new TokenValue(items.get(RevocationParser.TOKEN_VALUE));
+		System.out.println(tokenValue.getValue());
+		this.VerifyToken(tokenValue.getValue());
+		String decodedToken = token.DecodeTokenValue(tokenValue.getValue());
 		TokensStore myStore = TokensStore.getInstance();
 		Token tokenFound = myStore.Find(decodedToken);
 		TypeOfRevocation revocationType = new TypeOfRevocation(items.get(RevocationParser.TYPE_OF_REVOCATION));

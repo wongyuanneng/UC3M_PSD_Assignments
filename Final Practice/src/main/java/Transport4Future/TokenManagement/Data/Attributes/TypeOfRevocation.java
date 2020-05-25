@@ -5,7 +5,7 @@ import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
 public class TypeOfRevocation extends Attribute {
 
 	public TypeOfRevocation (String Value) throws TokenManagementException {
-		this.errorMessage = "Error: invalid type of revocation.";
+		this.errorMessage = "Error: invalid Type of revocation data in JSON structure.";
 		this.value = this.validate(Value);
 	}
 	

@@ -1,0 +1,2 @@
+"./TestData/RevokeTokenTest/CorrectFileTemporal.json", "autonomous@vehicle.com", "Revoke a Temporal Token"
+"./TestData/RevokeTokenTest/CorrectFileFinal.json", "Token previously revoked by this method.", "Revoke a Final Token"
