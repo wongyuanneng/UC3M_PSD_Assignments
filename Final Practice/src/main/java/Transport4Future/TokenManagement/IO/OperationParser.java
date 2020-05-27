@@ -10,7 +10,7 @@ public class OperationParser extends JSONParser implements ITokenManagementParse
 	
 	private static final String ERROR_INVALID_INPUT_DATA_IN_JSON_STRUCTURE = "Error: invalid input data in JSON structure.";
 	public static final String TOKEN_VALUE = "Token Value";
-	public static final String TYPE_OF_OPERATION = "Type of operation";
+	public static final String TYPE_OF_OPERATION = "Type of Operation";
 
 	public HashMap<String, String> Parse (String FileName) throws TokenManagementException
 	{

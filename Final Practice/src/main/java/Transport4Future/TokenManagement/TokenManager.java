@@ -99,7 +99,7 @@ public class TokenManager implements ITokenManagement {
 		TokenRequest tokenR = token.getTokenRequestEmmision();
 		TypeOfOperation opType = new TypeOfOperation(items.get(OperationParser.TYPE_OF_OPERATION));
 		
-		if (opType.getValue().equalsIgnoreCase("Check State") || opType.getValue().equalsIgnoreCase(tokenR.getTypeOfDevice()) || opType.getValue().equalsIgnoreCase(tokenR.getTypeOfDevice())) {
+		if (opType.getValue().equalsIgnoreCase("Check State") || opType.getValue().equalsIgnoreCase("Send Information from "+tokenR.getTypeOfDevice()) || opType.getValue().equalsIgnoreCase("Send Request to "+tokenR.getTypeOfDevice())) {
 			return true;
 		}
 		else {
