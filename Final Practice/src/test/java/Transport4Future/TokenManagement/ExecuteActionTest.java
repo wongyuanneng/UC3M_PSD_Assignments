@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.regex.Pattern;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
@@ -15,34 +13,38 @@ public class ExecuteActionTest {
     private String t1;
     private String t2;
 
+    /**
+     * ExecuteTokenTest Constructor
+     * @throws TokenManagementException if error occurs
+     */
     public ExecuteActionTest() throws TokenManagementException{
         myManager = TokenManager.getInstance();
         this.insertFirstToken();
         this.insertSecondToken();
         this.resetTokenStore();
     }
-    
-	private void resetTokenStore () throws TokenManagementException {
-		String storePath = System.getProperty("user.dir") + "/Store/tokenStore.json";
+
+    private void resetTokenStore () throws TokenManagementException {
+        String storePath = System.getProperty("user.dir") + "/Store/tokenStore.json";
         FileWriter fileWriter;
-		try {
-			fileWriter = new FileWriter(storePath);
-	        fileWriter.close();
-		} catch (IOException e) {
-			throw new TokenManagementException("Error: Unable to save a new token in the internal licenses store");
-		}		
-	}
-	
-	private void insertFirstToken () throws TokenManagementException {
-		this.resetTokenStore();
-		String InputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/CorrectTokenRequest.json";
-		this.t1 = myManager.RequestToken(InputFile);
-	}
-	
-	private void insertSecondToken () throws TokenManagementException {
-		String InputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/SecondCorrectTokenRequest.json";
-	    this.t2 = myManager.RequestToken(InputFile);		
-	}
+        try {
+            fileWriter = new FileWriter(storePath);
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new TokenManagementException("Error: Unable to save a new token in the internal licenses store");
+        }		
+    }
+
+    private void insertFirstToken () throws TokenManagementException {
+        this.resetTokenStore();
+        String inputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/CorrectTokenRequest.json";
+        this.t1 = myManager.requestToken(inputFile);
+    }
+
+    private void insertSecondToken () throws TokenManagementException {
+        String inputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/SecondCorrectTokenRequest.json";
+        this.t2 = myManager.requestToken(inputFile);		
+    }
 
     /*---------------------------------------------BV & EC--------------------------------------------------------------------------*/
 
@@ -53,19 +55,19 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <True>
      */
-    void EC_V01() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/CorrectFileSensor.json";
-        String Result = "The device represented by the token cannot execute the requested operation.";
+    void ec_V01() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/CorrectFileSensor.json";
+        String result = "The device represented by the token cannot execute the requested operation.";
         boolean myResult;
         try {
-            myResult = myManager.ExecuteAction(InputFilePath);
+            myResult = myManager.executeAction(inputFilePath);
             if (myResult) {
                 Assertions.assertEquals(true,myResult);
             } else {
                 Assertions.fail("Error: Output is false");
             }
         } catch (TokenManagementException ex) {
-            Assertions.assertEquals(Result,ex.getMessage());
+            Assertions.assertEquals(result,ex.getMessage());
         }
     }
 
@@ -76,22 +78,22 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <True>
      */
-    void EC_V02() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/CorrectFileActuator.json";
-        String Result = "The device represented by the token cannot execute the requested operation.";
+    void ec_V02() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/CorrectFileActuator.json";
+        String result = "The device represented by the token cannot execute the requested operation.";
         boolean myResult;
         try {
-            myResult = myManager.ExecuteAction(InputFilePath);
+            myResult = myManager.executeAction(inputFilePath);
             if (myResult) {
                 Assertions.assertEquals(true,myResult);
             } else {
                 Assertions.fail("Error: Output is false");
             }
         } catch (TokenManagementException ex) {
-            Assertions.assertEquals(Result,ex.getMessage());
+            Assertions.assertEquals(result,ex.getMessage());
         }
     }
-    
+
     @Test
     /*
      * Test Case: EC_V03 
@@ -99,19 +101,19 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <True>
      */
-    void EC_V03() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/CorrectFileCheckState.json";
-        String Result = "The device represented by the token cannot execute the requested operation.";
+    void ec_V03() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/CorrectFileCheckState.json";
+        String result = "The device represented by the token cannot execute the requested operation.";
         boolean myResult;
         try {
-            myResult = myManager.ExecuteAction(InputFilePath);
+            myResult = myManager.executeAction(inputFilePath);
             if (myResult) {
                 Assertions.assertEquals(true,myResult);
             } else {
                 Assertions.fail("Error: Output is false");
             }
         } catch (TokenManagementException ex) {
-            Assertions.assertEquals(Result,ex.getMessage());
+            Assertions.assertEquals(result,ex.getMessage());
         }
     }
 
@@ -122,12 +124,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid input data in JSON structure.">
      */
-    void EC_IV01() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/FileWithoutTokenValue.json";
+    void ec_IV01() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/FileWithoutTokenValue.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -139,12 +141,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid input data in JSON structure.">
      */
-    void EC_IV02() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/FileWithoutTypeOfOperation.json";
+    void ec_IV02() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/FileWithoutTypeOfOperation.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -156,12 +158,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid Token value data in JSON structure.">
      */
-    void EC_IV03() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/FileEmptyTokenValue.json";
+    void ec_IV03() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/FileEmptyTokenValue.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -173,12 +175,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid type of operation.">
      */
-    void EC_IV04() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/FileEmptyTypeOfOperation.json";
+    void ec_IV04() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/FileEmptyTypeOfOperation.json";
         String expectedMessage = "Error: invalid type of operation.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -191,12 +193,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid Token value data in JSON structure.">
      */
-    void EC_IV05() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/FileInvalidTokenValue.json";
+    void ec_IV05() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/FileInvalidTokenValue.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -208,12 +210,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid type of operation.">
      */
-    void EC_IV06() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/FileInvalidTypeOfOperation.json";
+    void ec_IV06() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/FileInvalidTypeOfOperation.json";
         String expectedMessage = "Error: invalid type of operation.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -225,12 +227,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid Token value data in JSON structure.">
      */
-    void EC_IV07() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/FileWrongTokenValue.json";
+    void ec_IV07() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/FileWrongTokenValue.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -242,12 +244,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "The device represented by the token cannot execute the requested operation.">
      */
-    void EC_IV08() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/FileWrongTypeOfOperation.json";
+    void ec_IV08() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/FileWrongTypeOfOperation.json";
         String expectedMessage = "The device represented by the token cannot execute the requested operation.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -260,12 +262,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: input file not found.">
      */
-    void EC_IVF01() throws TokenManagementException { 
-        String InputFilePath = "./TestData/ExecuteActionTest/NonExistingFile.json"; 
+    void ec_IVF01() throws TokenManagementException { 
+        String inputFilePath = "./TestData/ExecuteActionTest/NonExistingFile.json"; 
         String expectedMessage = "Error: input file not found.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
-            myManager.ExecuteAction(InputFilePath); 
+            myManager.executeAction(inputFilePath); 
         }); 
         assertEquals(expectedMessage,ex.getMessage()); 
     }
@@ -277,12 +279,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: JSON object cannot be created due to incorrect representation">
      */
-    void EC_IVF02() throws TokenManagementException { 
-        String InputFilePath = "./TestData/ExecuteActionTest/EmptyFile.json"; 
+    void ec_IVF02() throws TokenManagementException { 
+        String inputFilePath = "./TestData/ExecuteActionTest/EmptyFile.json"; 
         String expectedMessage ="Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
-            myManager.ExecuteAction(InputFilePath); 
+            myManager.executeAction(inputFilePath); 
         }); 
         assertEquals(expectedMessage,ex.getMessage()); 
     }
@@ -294,12 +296,12 @@ public class ExecuteActionTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: JSON object cannot be created due to incorrect representation">
      */
-    void EC_IVF03() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/NonJSONFile.json";
+    void ec_IVF03() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/NonJSONFile.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -313,9 +315,9 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"True": The operation can be executed.>
      */
-    void Syntax_V01() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-V01.json";
-        boolean myResult = myManager.ExecuteAction(InputFilePath);
+    void syntax_V01() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-V01.json";
+        boolean myResult = myManager.executeAction(inputFilePath);
         assertEquals(true,myResult);
     }
 
@@ -326,12 +328,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV01() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV01.json";
+    void syntax_IV01() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV01.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -342,12 +344,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV02() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV02.json";
+    void syntax_IV02() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV02.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -358,12 +360,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV03() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV03.json";
+    void syntax_IV03() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV03.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -374,12 +376,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV04() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV04.json";
+    void syntax_IV04() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV04.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -390,12 +392,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV05() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV05.json";
+    void syntax_IV05() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV05.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -406,12 +408,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV06() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV06.json";
+    void syntax_IV06() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV06.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -422,12 +424,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV07() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV07.json";
+    void syntax_IV07() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV07.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -438,12 +440,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV08() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV08.json";
+    void syntax_IV08() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV08.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -454,12 +456,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV09() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV09.json";
+    void syntax_IV09() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV09.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -470,12 +472,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV10() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV10.json";
+    void syntax_IV10() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV10.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -486,12 +488,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV11() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV11.json";
+    void syntax_IV11() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV11.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -502,12 +504,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV12() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV12.json";
+    void syntax_IV12() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV12.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -518,12 +520,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV13() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV13.json";
+    void syntax_IV13() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV13.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -534,12 +536,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV14() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV14.json";
+    void syntax_IV14() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV14.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -550,12 +552,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV15() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV15.json";
+    void syntax_IV15() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV15.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -566,12 +568,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV16() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV16.json";
+    void syntax_IV16() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV16.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -582,12 +584,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV17() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV17.json";
+    void syntax_IV17() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV17.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -598,12 +600,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV18() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV18.json";
+    void syntax_IV18() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV18.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -614,12 +616,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV19() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV19.json";
+    void syntax_IV19() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV19.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -630,12 +632,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV20() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV20.json";
+    void syntax_IV20() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV20.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -646,12 +648,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV21() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV21.json";
+    void syntax_IV21() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV21.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -662,12 +664,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV22() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV22.json";
+    void syntax_IV22() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV22.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -678,12 +680,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV23() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV23.json";
+    void syntax_IV23() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV23.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -694,12 +696,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV24() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV24.json";
+    void syntax_IV24() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV24.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -710,12 +712,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV25() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV25.json";
+    void syntax_IV25() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV25.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -726,12 +728,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV26() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV26.json";
+    void syntax_IV26() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV26.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -742,12 +744,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV27() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV27.json";
+    void syntax_IV27() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV27.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -758,12 +760,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Type of Operation data in JSON structure.">
      */
-    void Syntax_IV28() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV28.json";
+    void syntax_IV28() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV28.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -774,28 +776,28 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV29() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV29.json";
+    void syntax_IV29() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV29.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV30 - Non-Terminal 17 omission>
      * Related derivation tree nodes: <17, 31>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV30() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV30.json";
+    void syntax_IV30() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV30.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -806,12 +808,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV31() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV31.json";
+    void syntax_IV31() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV31.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -822,12 +824,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV32() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV32.json";
+    void syntax_IV32() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV32.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -838,12 +840,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV33() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV33.json";
+    void syntax_IV33() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV33.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -854,12 +856,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV34() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV34.json";
+    void syntax_IV34() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV34.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -870,12 +872,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV35() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV35.json";
+    void syntax_IV35() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV35.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -886,12 +888,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV36() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV36.json";
+    void syntax_IV36() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV36.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -902,12 +904,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV37() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV37.json";
+    void syntax_IV37() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV37.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -918,12 +920,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV38() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV38.json";
+    void syntax_IV38() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV38.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -934,12 +936,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Token value data in JSON structure.">
      */
-    void Syntax_IV39() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV39.json";
+    void syntax_IV39() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV39.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -950,12 +952,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Token value data in JSON structure.">
      */
-    void Syntax_IV40() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV40.json";
+    void syntax_IV40() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV40.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -966,12 +968,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV41() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV41.json";
+    void syntax_IV41() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV41.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -982,12 +984,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV42() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV42.json";
+    void syntax_IV42() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV42.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -998,12 +1000,12 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV43() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV43.json";
+    void syntax_IV43() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV43.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -1014,386 +1016,386 @@ public class ExecuteActionTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV44() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV44.json";
+    void syntax_IV44() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV44.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV45 - Non-Terminal 25 omission>
      * Related derivation tree nodes: <25, 38>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV45() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV45.json";
+    void syntax_IV45() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV45.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV46 - Non-Terminal 25 repetition>
      * Related derivation tree nodes: <25, 38>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV46() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV46.json";
+    void syntax_IV46() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV46.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV47 - Non-Terminal 26 omission>
      * Related derivation tree nodes: <26, 39>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV47() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV47.json";
+    void syntax_IV47() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV47.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV48 - Non-Terminal 26 repetition>
      * Related derivation tree nodes: <26, 39>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV48() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV48.json";
+    void syntax_IV48() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV48.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV49 - Terminal 27 modification>
      * Related derivation tree nodes: <27>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV49() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV49.json";
+    void syntax_IV49() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV49.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV50 - Non-Terminal 28 omission>
      * Related derivation tree nodes: <28, 40>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV50() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV50.json";
+    void syntax_IV50() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV50.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV51 - Non-Terminal 28 repetition>
      * Related derivation tree nodes: <28, 40>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV51() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV51.json";
+    void syntax_IV51() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV51.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV52 - Non-Terminal 29 omission>
      * Related derivation tree nodes: <29, 41>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid type of operation.">
      */
-    void Syntax_IV52() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV52.json";
+    void syntax_IV52() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV52.json";
         String expectedMessage = "Error: invalid type of operation.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV53 - Non-Terminal 29 repetition>
      * Related derivation tree nodes: <29, 41>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid type of operation.">
      */
-    void Syntax_IV53() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV53.json";
+    void syntax_IV53() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV53.json";
         String expectedMessage = "Error: invalid type of operation.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV54 - Non-Terminal 30 omission>
      * Related derivation tree nodes: <30, 42>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV54() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV54.json";
+    void syntax_IV54() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV54.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV55 - Non-Terminal 30 repetition>
      * Related derivation tree nodes: <30, 42>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV55() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV55.json";
+    void syntax_IV55() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV55.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV56 - Terminal 31 modification>
      * Related derivation tree nodes: <31>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV56() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV56.json";
+    void syntax_IV56() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV56.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV57 - Terminal 32 modification>
      * Related derivation tree nodes: <32>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV57() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV57.json";
+    void syntax_IV57() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV57.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV58 - Terminal 33 modification>
      * Related derivation tree nodes: <33>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV58() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV58.json";
+    void syntax_IV58() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV58.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV59 - Terminal 34 modification>
      * Related derivation tree nodes: <34>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV59() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV59.json";
+    void syntax_IV59() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV59.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV60 - Terminal 35 modification>
      * Related derivation tree nodes: <35>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Token value data in JSON structure.">
      */
-    void Syntax_IV60() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV60.json";
+    void syntax_IV60() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV60.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV61 - Terminal 36 modification>
      * Related derivation tree nodes: <36>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV61() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV61.json";
+    void syntax_IV61() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV61.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV62 - Terminal 37 modification>
      * Related derivation tree nodes: <37>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV62() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV62.json";
+    void syntax_IV62() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV62.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV63 - Terminal 38 modification>
      * Related derivation tree nodes: <38>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV63() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV63.json";
+    void syntax_IV63() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV63.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV64 - Terminal 39 modification>
      * Related derivation tree nodes: <39>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV64() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV64.json";
+    void syntax_IV64() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV64.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV65 - Terminal 40 modification>
      * Related derivation tree nodes: <40>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV65() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV65.json";
+    void syntax_IV65() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV65.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV66 - Terminal 41 modification>
      * Related derivation tree nodes: <41>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid type of operation.">
      */
-    void Syntax_IV66() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV66.json";
+    void syntax_IV66() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV66.json";
         String expectedMessage = "Error: invalid type of operation.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
+
     @Test 
     /* Test Case: <Syntax-IV67 - Terminal 42 modification>
      * Related derivation tree nodes: <42>
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV67() throws TokenManagementException {
-        String InputFilePath = "./TestData/ExecuteActionTest/Syntax-IV67.json";
+    void syntax_IV67() throws TokenManagementException {
+        String inputFilePath = "./TestData/ExecuteActionTest/Syntax-IV67.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.ExecuteAction(InputFilePath);
+            myManager.executeAction(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
-    
-    
-    
+
+
+
 
 
     /*
@@ -1402,10 +1404,10 @@ public class ExecuteActionTest {
      * @ParameterizedTest(name = "{index} - {2}")
      * 
      * @CsvFileSource(resources = "/invalidTestCasesExecuteActionTest.csv") void
-     * InvalidTestCases(String InputFilePath, String expectedMessage) throws
+     * InvalidTestCases(String inputFilePath, String expectedMessage) throws
      * TokenManagementException { TokenManagementException ex =
      * Assertions.assertThrows(TokenManagementException.class, ()-> {
-     * myManager.ExecuteAction(InputFilePath); }); assertEquals
+     * myManager.ExecuteAction(inputFilePath); }); assertEquals
      * (expectedMessage,ex.getMessage()); }
      * 
      * @DisplayName ("Valid Test Cases")
@@ -1413,8 +1415,8 @@ public class ExecuteActionTest {
      * @ParameterizedTest(name = "{index} - {2}")
      * 
      * @CsvFileSource(resources = "/validTestCasesExecuteActionTest.csv") void
-     * ValidTestCases(String InputFilePath, String Result) throws
+     * ValidTestCases(String inputFilePath, String result) throws
      * TokenManagementException { String myResult =
-     * myManager.ExecuteAction(InputFilePath); assertEquals (Result,myResult); }
+     * myManager.ExecuteAction(inputFilePath); assertEquals (result,myResult); }
      */
 }

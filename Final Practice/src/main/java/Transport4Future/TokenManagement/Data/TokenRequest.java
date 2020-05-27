@@ -14,74 +14,79 @@ import Transport4Future.TokenManagement.Store.TokensRequestStore;
 import Transport4Future.Utils.MD5Hasher;
 
 public class TokenRequest {
-	
 
-	private DeviceName deviceName;
-	private TypeOfDevice typeOfDevice;
-	private DriverVersion driverVersion;
-	private EMail supportEMail;
-	private SerialNumber serialNumber;
-	private MACAddress macAddress;
-	private String hash;
-	
-	public TokenRequest (String InputFile) throws TokenManagementException {
-		TokenRequestParser myParser = new TokenRequestParser();
-		HashMap<String, String> items = (HashMap<String, String>) myParser.Parse(InputFile);
-		this.deviceName = new DeviceName (items.get(TokenRequestParser.DEVICE_NAME));
-		this.typeOfDevice = new TypeOfDevice (items.get(TokenRequestParser.TYPE_OF_DEVICE));
-		this.driverVersion = new DriverVersion(items.get(TokenRequestParser.DRIVER_VERSION));
-		this.supportEMail = new EMail(items.get(TokenRequestParser.SUPPORT_E_MAIL));
-		this.serialNumber = new SerialNumber(items.get(TokenRequestParser.SERIAL_NUMBER));
-		this.macAddress = new MACAddress(items.get(TokenRequestParser.MAC_ADDRESS));		
-		this.hash = generateHash();
-		this.Store();
-	}
-	
-	private String generateHash() throws TokenManagementException {
-		MD5Hasher myHasher = new MD5Hasher();
-		return myHasher.Hash(this.toString());	
-	}
-	
-	private void Store () throws TokenManagementException {
-		TokensRequestStore myStore = TokensRequestStore.getInstance();
-		myStore.saveTokenRequest(this, this.hash);
-	}
-	
-	public String getDeviceName() {
-		return deviceName.getValue();
-	}
 
-	public String getTypeOfDevice() {
-		return typeOfDevice.getValue();
-	}
+    private DeviceName deviceName;
+    private TypeOfDevice typeOfDevice;
+    private DriverVersion driverVersion;
+    private EMail supportEMail;
+    private SerialNumber serialNumber;
+    private MACAddress macAddress;
+    private String hash;
+    
+    /**
+     * TokenRequest constructor with attributes provided explicitly.
+     *
+     * @throws TokenManagementException if any error occurs
+     */
+    public TokenRequest (String InputFile) throws TokenManagementException {
+        TokenRequestParser myParser = new TokenRequestParser();
+        HashMap<String, String> items = (HashMap<String, String>) myParser.parse(InputFile);
+        this.deviceName = new DeviceName (items.get(TokenRequestParser.DEVICE_NAME));
+        this.typeOfDevice = new TypeOfDevice (items.get(TokenRequestParser.TYPE_OF_DEVICE));
+        this.driverVersion = new DriverVersion(items.get(TokenRequestParser.DRIVER_VERSION));
+        this.supportEMail = new EMail(items.get(TokenRequestParser.SUPPORT_E_MAIL));
+        this.serialNumber = new SerialNumber(items.get(TokenRequestParser.SERIAL_NUMBER));
+        this.macAddress = new MACAddress(items.get(TokenRequestParser.MAC_ADDRESS));		
+        this.hash = generateHash();
+        this.store();
+    }
 
-	public String getDriverVersion() {
-		return driverVersion.getValue();
-	}
+    private String generateHash() throws TokenManagementException {
+        MD5Hasher myHasher = new MD5Hasher();
+        return myHasher.hash(this.toString());	
+    }
 
-	public String getSupportEMail() {
-		return supportEMail.getValue();
-	}
+    private void store () throws TokenManagementException {
+        TokensRequestStore myStore = TokensRequestStore.getInstance();
+        myStore.saveTokenRequest(this, this.hash);
+    }
 
-	public String getSerialNumber() {
-		return serialNumber.getValue();
-	}
+    public String getDeviceName() {
+        return deviceName.getValue();
+    }
 
-	public String getMacAddress() {
-		return macAddress.getValue();
-	}
-	
-	public String getHash() {
-		return this.hash;
-	}
-	
-	@Override
-	public String toString() {
-		return "TokenRequest [\\n\\" + TokenRequestParser.DEVICE_NAME + "=" + this.getDeviceName() +
-				",\n\t\\" + TokenRequestParser.TYPE_OF_DEVICE + "=" + this.getTypeOfDevice() +
-				",\n\t\\" + TokenRequestParser.DRIVER_VERSION + "=" + this.getDriverVersion() +	
-				",\n\t\\" + TokenRequestParser.SUPPORT_E_MAIL + "=" + this.getSupportEMail() +	
-				",\n\t\\" + TokenRequestParser.SERIAL_NUMBER + "=" + this.getSerialNumber() +
-				",\n\t\\" + TokenRequestParser.MAC_ADDRESS + "=" + this.getMacAddress() + "\n]";
-	}
+    public String getTypeOfDevice() {
+        return typeOfDevice.getValue();
+    }
+
+    public String getDriverVersion() {
+        return driverVersion.getValue();
+    }
+
+    public String getSupportEMail() {
+        return supportEMail.getValue();
+    }
+
+    public String getSerialNumber() {
+        return serialNumber.getValue();
+    }
+
+    public String getMacAddress() {
+        return macAddress.getValue();
+    }
+
+    public String getHash() {
+        return this.hash;
+    }
+
+    @Override
+    public String toString() {
+        return "TokenRequest [\\n\\" + TokenRequestParser.DEVICE_NAME + "=" + this.getDeviceName() +
+                ",\n\t\\" + TokenRequestParser.TYPE_OF_DEVICE + "=" + this.getTypeOfDevice() +
+                ",\n\t\\" + TokenRequestParser.DRIVER_VERSION + "=" + this.getDriverVersion() +	
+                ",\n\t\\" + TokenRequestParser.SUPPORT_E_MAIL + "=" + this.getSupportEMail() +	
+                ",\n\t\\" + TokenRequestParser.SERIAL_NUMBER + "=" + this.getSerialNumber() +
+                ",\n\t\\" + TokenRequestParser.MAC_ADDRESS + "=" + this.getMacAddress() + "\n]";
+    }
 }

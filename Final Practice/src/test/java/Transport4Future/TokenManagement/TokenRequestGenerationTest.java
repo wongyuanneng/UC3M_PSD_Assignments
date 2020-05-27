@@ -10,28 +10,28 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
 
 public class TokenRequestGenerationTest {
-	private TokenManager myManager;
-	
-	public TokenRequestGenerationTest () {
-		 myManager = TokenManager.getInstance();
-	}
-	
-	@DisplayName ("Invalid Test Cases")
-	@ParameterizedTest(name = "{index} - {2}")
-	@CsvFileSource(resources = "/invalidTestCasesRequestGenerationTest.csv")
-	void InvalidTestCases(String InputFilePath, String expectedMessage) {
-		TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
-			myManager.TokenRequestGeneration(InputFilePath);
-		});
-		assertEquals (expectedMessage,ex.getMessage());
-	}
-	
-	@DisplayName ("Valid Test Cases")
-	@ParameterizedTest(name = "{index} - {2}")
-	@CsvFileSource(resources = "/validTestCasesRequestGenerationTest.csv")
-	void ValidTestCases(String InputFilePath, String Result) throws TokenManagementException {
-		String myResult = myManager.TokenRequestGeneration(InputFilePath);
-		assertEquals (Result,myResult);
-	}
+    private TokenManager myManager;
+
+    public TokenRequestGenerationTest () {
+        myManager = TokenManager.getInstance();
+    }
+
+    @DisplayName ("Invalid Test Cases")
+    @ParameterizedTest(name = "{index} - {2}")
+    @CsvFileSource(resources = "/invalidTestCasesRequestGenerationTest.csv")
+    void invalidTestCases(String InputFilePath, String expectedMessage) {
+        TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
+            myManager.tokenRequestGeneration(InputFilePath);
+        });
+        assertEquals (expectedMessage,ex.getMessage());
+    }
+
+    @DisplayName ("Valid Test Cases")
+    @ParameterizedTest(name = "{index} - {2}")
+    @CsvFileSource(resources = "/validTestCasesRequestGenerationTest.csv")
+    void validTestCases(String InputFilePath, String Result) throws TokenManagementException {
+        String myResult = myManager.tokenRequestGeneration(InputFilePath);
+        assertEquals (Result,myResult);
+    }
 }
 

@@ -2,8 +2,6 @@ package Transport4Future.TokenManagement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Assertions;
@@ -26,13 +24,13 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <NotificationEmail "autonomous@vehicle.com">
      */
-    void EC_V01() throws TokenManagementException {
-        myManager.TokenRequestGeneration(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectFileRequest1.json");
-        myManager.RequestToken(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectTokenRequest1.json");
+    void ec_V01() throws TokenManagementException {
+        myManager.tokenRequestGeneration(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectFileRequest1.json");
+        myManager.requestToken(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectTokenRequest1.json");
         
-        String InputFilePath = "./TestData/RevokeTokenTest/CorrectFileTemporal.json";
+        String inputFilePath = "./TestData/RevokeTokenTest/CorrectFileTemporal.json";
         String expected = "autonomous1@vehicle.com";
-        String myResult = myManager.RevokeToken(InputFilePath);
+        String myResult = myManager.revokeToken(inputFilePath);
         if (myResult instanceof String) {
             String p = "(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*)|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*:(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*)(?:,\\s*(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*))*)?;\\s*)";
             Pattern pattern = Pattern.compile(p);
@@ -52,13 +50,13 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: Token previously revoked by this method.">
      */
-    void EC_V02() throws TokenManagementException {
-        myManager.TokenRequestGeneration(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectFileRequest2.json");
-        myManager.RequestToken(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectTokenRequest2.json");
+    void ec_V02() throws TokenManagementException {
+        myManager.tokenRequestGeneration(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectFileRequest2.json");
+        myManager.requestToken(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectTokenRequest2.json");
         
-        String InputFilePath = "./TestData/RevokeTokenTest/CorrectFileFinal.json";
+        String inputFilePath = "./TestData/RevokeTokenTest/CorrectFileFinal.json";
         String expected = "autonomous2@vehicle.com";
-        String myResult = myManager.RevokeToken(InputFilePath);
+        String myResult = myManager.revokeToken(inputFilePath);
         if (myResult instanceof String) {
             String p = "(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*)|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*:(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*)(?:,\\s*(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*))*)?;\\s*)";
             Pattern pattern = Pattern.compile(p);
@@ -78,12 +76,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid input data in JSON structure.">
      */
-    void EC_IV01() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileWithoutTokenValue.json";
+    void ec_IV01() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileWithoutTokenValue.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -95,12 +93,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid input data in JSON structure.">
      */
-    void EC_IV02() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileWithoutTypeOfRevocation.json";
+    void ec_IV02() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileWithoutTypeOfRevocation.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -112,12 +110,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid input data in JSON structure.">
      */
-    void EC_IV03() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileWithoutReason.json";
+    void ec_IV03() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileWithoutReason.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -129,12 +127,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid Token value data in JSON structure.">
      */
-    void EC_IV04() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileEmptyTokenValue.json";
+    void ec_IV04() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileEmptyTokenValue.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -146,12 +144,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid Type of revocation data in JSON structure.">
      */
-    void EC_IV05() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileEmptyTypeOfRevocation.json";
+    void ec_IV05() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileEmptyTypeOfRevocation.json";
         String expectedMessage = "Error: invalid Type of revocation data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -163,12 +161,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid String length for Reason.">
      */
-    void EC_IV06() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileEmptyReason.json";
+    void ec_IV06() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileEmptyReason.json";
         String expectedMessage = "Error: invalid String length for Reason.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -180,12 +178,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid Token value data in JSON structure.">
      */
-    void EC_IV07() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileInvalidTokenValue.json";
+    void ec_IV07() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileInvalidTokenValue.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -197,12 +195,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid Type of revocation data in JSON structure.">
      */
-    void EC_IV08() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileInvalidTypeOfRevocation.json";
+    void ec_IV08() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileInvalidTypeOfRevocation.json";
         String expectedMessage = "Error: invalid Type of revocation data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -214,12 +212,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid String length for Reason.">
      */
-    void EC_IV09() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileLargeReason.json";
+    void ec_IV09() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileLargeReason.json";
         String expectedMessage = "Error: invalid String length for Reason.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -231,12 +229,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid input data in JSON structure.">
      */
-    void EC_IV10() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileWrongTokenValue.json";
+    void ec_IV10() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileWrongTokenValue.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -248,12 +246,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid input data in JSON structure.">
      */
-    void EC_IV11() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileWrongTypeOfRevocation.json";
+    void ec_IV11() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileWrongTypeOfRevocation.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -265,12 +263,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: invalid input data in JSON structure.">
      */
-    void EC_IV12() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/FileWrongReason.json";
+    void ec_IV12() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/FileWrongReason.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -282,12 +280,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: input file not found.">
      */
-    void EC_IVF01() throws TokenManagementException { 
-        String InputFilePath = "./TestData/RevokeTokenTest/NonExistingFile.json"; 
+    void ec_IVF01() throws TokenManagementException { 
+        String inputFilePath = "./TestData/RevokeTokenTest/NonExistingFile.json"; 
         String expectedMessage = "Error: input file not found.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
-            myManager.RevokeToken(InputFilePath); 
+            myManager.revokeToken(inputFilePath); 
         }); 
         assertEquals(expectedMessage,ex.getMessage()); 
     }
@@ -299,12 +297,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: JSON object cannot be created due to incorrect representation">
      */
-    void EC_IVF02() throws TokenManagementException { 
-        String InputFilePath = "./TestData/RevokeTokenTest/EmptyFile.json"; 
+    void ec_IVF02() throws TokenManagementException { 
+        String inputFilePath = "./TestData/RevokeTokenTest/EmptyFile.json"; 
         String expectedMessage ="Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, ()-> {
-            myManager.RevokeToken(InputFilePath); 
+            myManager.revokeToken(inputFilePath); 
         }); 
         assertEquals(expectedMessage,ex.getMessage()); 
     }
@@ -316,12 +314,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: JSON object cannot be created due to incorrect representation">
      */
-    void EC_IVF03() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/NonJSONFile.json";
+    void ec_IVF03() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/NonJSONFile.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -333,12 +331,12 @@ public class RevokeTokenTest {
      * Testing method: <Equivalence class> 
      * Expected result: <TokenManagementException "Error: Token previously revoked by this method.">
      */
-    void EC_IVO01() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_V01.json";
+    void ec_IVO01() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/CorrectFileTemporal.json";
         String expected = "Error: Token previously revoked by this method.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expected, ex.getMessage());
     }
@@ -352,10 +350,10 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"autonomous@vehicle.com" OR "Error: Token previously revoked by this method.">
      */
-    void Syntax_V01() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_V01.json";
+    void syntax_V01() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_V01.json";
         String expected = "autonomous@vehicle.com";
-        String myResult = myManager.RevokeToken(InputFilePath);
+        String myResult = myManager.revokeToken(inputFilePath);
         if (myResult instanceof String) {
             String p = "(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*)|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*:(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*)(?:,\\s*(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*))*)?;\\s*)";
             Pattern pattern = Pattern.compile(p);
@@ -374,13 +372,13 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"autonomous@vehicle.com" OR "Error: Token previously revoked by this method.">
      */
-    void Syntax_V02() throws TokenManagementException {
-        myManager.TokenRequestGeneration(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectFileRequest3.json");
-        myManager.RequestToken(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectTokenRequest3.json");
+    void syntax_V02() throws TokenManagementException {
+        myManager.tokenRequestGeneration(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectFileRequest3.json");
+        myManager.requestToken(System.getProperty("user.dir") + "/TestData/RevokeTokenTest/CorrectTokenRequest3.json");
         
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_V02.json";
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_V02.json";
         String expected = "autonomous3@vehicle.com";
-        String myResult = myManager.RevokeToken(InputFilePath);
+        String myResult = myManager.revokeToken(inputFilePath);
         if (myResult instanceof String) {
             String p = "(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*)|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*:(?:(?:\\r\\n)?[ \\t])*(?:(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*)(?:,\\s*(?:(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*|(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)*\\<(?:(?:\\r\\n)?[ \\t])*(?:@(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*(?:,@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*)*:(?:(?:\\r\\n)?[ \\t])*)?(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\"(?:[^\\\"\\r\\\\]|\\\\.|(?:(?:\\r\\n)?[ \\t]))*\"(?:(?:\\r\\n)?[ \\t])*))*@(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*)(?:\\.(?:(?:\\r\\n)?[ \\t])*(?:[^()<>@,;:\\\\\".\\[\\] \\000-\\031]+(?:(?:(?:\\r\\n)?[ \\t])+|\\Z|(?=[\\[\"()<>@,;:\\\\\".\\[\\]]))|\\[([^\\[\\]\\r\\\\]|\\\\.)*\\](?:(?:\\r\\n)?[ \\t])*))*\\>(?:(?:\\r\\n)?[ \\t])*))*)?;\\s*)";
             Pattern pattern = Pattern.compile(p);
@@ -399,12 +397,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV01() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV01.json";
+    void syntax_IV01() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV01.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -415,12 +413,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV02() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV02.json";
+    void syntax_IV02() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV02.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -431,12 +429,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV03() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV03.json";
+    void syntax_IV03() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV03.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -447,12 +445,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV04() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV04.json";
+    void syntax_IV04() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV04.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -463,12 +461,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV05() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV05.json";
+    void syntax_IV05() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV05.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -479,12 +477,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV06() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV06.json";
+    void syntax_IV06() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV06.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -495,12 +493,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV07() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV07.json";
+    void syntax_IV07() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV07.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -511,12 +509,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV08() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV08.json";
+    void syntax_IV08() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV08.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -527,12 +525,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV09() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV09.json";
+    void syntax_IV09() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV09.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -543,12 +541,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV10() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV10.json";
+    void syntax_IV10() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV10.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -559,12 +557,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV11() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV11.json";
+    void syntax_IV11() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV11.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -575,12 +573,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV12() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV12.json";
+    void syntax_IV12() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV12.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -591,12 +589,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV13() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV13.json";
+    void syntax_IV13() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV13.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -607,12 +605,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV14() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV14.json";
+    void syntax_IV14() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV14.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -623,12 +621,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV15() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV15.json";
+    void syntax_IV15() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV15.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -639,12 +637,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV16() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV16.json";
+    void syntax_IV16() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV16.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -655,12 +653,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV17() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV17.json";
+    void syntax_IV17() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV17.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -671,12 +669,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV18() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV18.json";
+    void syntax_IV18() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV18.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -687,12 +685,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV19() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV19.json";
+    void syntax_IV19() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV19.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -703,12 +701,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV20() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV20.json";
+    void syntax_IV20() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV20.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -719,12 +717,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV21() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV21.json";
+    void syntax_IV21() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV21.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -735,12 +733,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV22() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV22.json";
+    void syntax_IV22() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV22.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -751,12 +749,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV23() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV23.json";
+    void syntax_IV23() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV23.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -767,12 +765,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV24() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV24.json";
+    void syntax_IV24() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV24.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -783,12 +781,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Token value data in JSON structure.">
      */
-    void Syntax_IV25() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV25.json";
+    void syntax_IV25() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV25.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -799,12 +797,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV26() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV26.json";
+    void syntax_IV26() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV26.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -815,12 +813,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV27() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV27.json";
+    void syntax_IV27() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV27.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -831,12 +829,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Type of revocation data in JSON structure.">
      */
-    void Syntax_IV28() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV28.json";
+    void syntax_IV28() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV28.json";
         String expectedMessage = "Error: invalid Type of revocation data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -847,12 +845,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Type of revocation data in JSON structure.">
      */
-    void Syntax_IV29() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV29.json";
+    void syntax_IV29() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV29.json";
         String expectedMessage = "Error: invalid Type of revocation data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -863,12 +861,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid String length for Reason.">
      */
-    void Syntax_IV30() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV30.json";
+    void syntax_IV30() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV30.json";
         String expectedMessage = "Error: invalid String length for Reason.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -879,12 +877,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid String length for Reason.">
      */
-    void Syntax_IV31() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV31.json";
+    void syntax_IV31() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV31.json";
         String expectedMessage = "Error: invalid String length for Reason.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -895,12 +893,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV32() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV32.json";
+    void syntax_IV32() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV32.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -911,12 +909,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV33() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV33.json";
+    void syntax_IV33() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV33.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -927,12 +925,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV34() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV34.json";
+    void syntax_IV34() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV34.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -943,12 +941,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV35() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV35.json";
+    void syntax_IV35() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV35.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -959,12 +957,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV36() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV36.json";
+    void syntax_IV36() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV36.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -975,12 +973,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV37() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV37.json";
+    void syntax_IV37() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV37.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -991,12 +989,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV38() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV38.json";
+    void syntax_IV38() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV38.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -1007,12 +1005,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Token value data in JSON structure.">
      */
-    void Syntax_IV39() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV39.json";
+    void syntax_IV39() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV39.json";
         String expectedMessage = "Error: invalid Token value data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -1023,12 +1021,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: JSON object cannot be created due to incorrect representation">
      */
-    void Syntax_IV40() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV40.json";
+    void syntax_IV40() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV40.json";
         String expectedMessage = "Error: JSON object cannot be created due to incorrect representation";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -1039,12 +1037,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV41() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV41.json";
+    void syntax_IV41() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV41.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -1055,12 +1053,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Type of revocation data in JSON structure.">
      */
-    void Syntax_IV42() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV42.json";
+    void syntax_IV42() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV42.json";
         String expectedMessage = "Error: invalid Type of revocation data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -1071,12 +1069,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid input data in JSON structure.">
      */
-    void Syntax_IV43() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV43.json";
+    void syntax_IV43() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV43.json";
         String expectedMessage = "Error: invalid input data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -1087,12 +1085,12 @@ public class RevokeTokenTest {
      * Testing method: <Syntax analysis>
      * Expected result: <"Error: invalid Reason data in JSON structure.">
      */
-    void Syntax_IV44() throws TokenManagementException {
-        String InputFilePath = "./TestData/RevokeTokenTest/Syntax_IV44.json";
+    void syntax_IV44() throws TokenManagementException {
+        String inputFilePath = "./TestData/RevokeTokenTest/Syntax_IV44.json";
         String expectedMessage = "Error: invalid Reason data in JSON structure.";
 
         TokenManagementException ex = Assertions.assertThrows(TokenManagementException.class, () -> {
-            myManager.RevokeToken(InputFilePath);
+            myManager.revokeToken(inputFilePath);
         });
         assertEquals(expectedMessage, ex.getMessage());
     }
@@ -1104,10 +1102,10 @@ public class RevokeTokenTest {
      * @ParameterizedTest(name = "{index} - {2}")
      * 
      * @CsvFileSource(resources = "/invalidTestCasesRevokeTokenTest.csv") void
-     * InvalidTestCases(String InputFilePath, String expectedMessage) throws
+     * InvalidTestCases(String inputFilePath, String expectedMessage) throws
      * TokenManagementException { TokenManagementException ex =
      * Assertions.assertThrows(TokenManagementException.class, ()-> {
-     * myManager.RevokeToken(InputFilePath); }); assertEquals
+     * myManager.RevokeToken(inputFilePath); }); assertEquals
      * (expectedMessage,ex.getMessage()); }
      * 
      * @DisplayName ("Valid Test Cases")
@@ -1115,8 +1113,8 @@ public class RevokeTokenTest {
      * @ParameterizedTest(name = "{index} - {2}")
      * 
      * @CsvFileSource(resources = "/validTestCasesRevokeTokenTest.csv") void
-     * ValidTestCases(String InputFilePath, String Result) throws
+     * ValidTestCases(String inputFilePath, String Result) throws
      * TokenManagementException { String myResult =
-     * myManager.RevokeToken(InputFilePath); assertEquals (Result,myResult); }
+     * myManager.RevokeToken(inputFilePath); assertEquals (Result,myResult); }
      */
 }
