@@ -14,7 +14,12 @@ import Transport4Future.TokenManagement.StoreForTests;
 public class RevokeTokenTest {
     private TokenManager myManager;
     private StoreForTests storeTokens;
-
+    
+    /**
+     * RevokeTokenTest constructor
+     *
+     * @throws TokenManagementException if error
+     */
     public RevokeTokenTest() throws TokenManagementException {
         myManager = TokenManager.getInstance();
         this.resetDeactivatedTokenStore();
@@ -23,6 +28,11 @@ public class RevokeTokenTest {
         storeTokens.insertSecondToken();
     }
     
+    /**
+     * Resets deactivatedTokenStore
+     *
+     * @throws TokenManagementException if error
+     */
     public void resetDeactivatedTokenStore () throws TokenManagementException {
         String storePath = System.getProperty("user.dir") + "/Store/deactivatedTokenStore.json";
         FileWriter fileWriter;

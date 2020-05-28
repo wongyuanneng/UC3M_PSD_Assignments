@@ -1,17 +1,9 @@
 package Transport4Future.TokenManagement;
 
-import java.util.HashMap;
-
 import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Data.TokenRequest;
 import Transport4Future.TokenManagement.Data.DeactivatedToken;
-import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
-import Transport4Future.TokenManagement.Data.Attributes.TokenValue;
-import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
-import Transport4Future.TokenManagement.Data.Attributes.TypeOfOperation;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
-import Transport4Future.TokenManagement.IO.RevocationParser;
-import Transport4Future.TokenManagement.IO.OperationParser;
 
 public class TokenManager implements ITokenManagement {
 

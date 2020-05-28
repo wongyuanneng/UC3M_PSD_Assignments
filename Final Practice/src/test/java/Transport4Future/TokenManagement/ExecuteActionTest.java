@@ -2,8 +2,6 @@ package Transport4Future.TokenManagement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;

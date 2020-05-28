@@ -9,8 +9,6 @@ import java.util.HashMap;
 import Transport4Future.TokenManagement.Data.Attributes.Device;
 import Transport4Future.TokenManagement.Data.Attributes.EMail;
 import Transport4Future.TokenManagement.Data.Attributes.RequestDate;
-import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
-import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
 import Transport4Future.TokenManagement.Data.Attributes.TokenValue;
 import Transport4Future.TokenManagement.Data.Attributes.TypeOfOperation;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
@@ -65,7 +63,7 @@ public class Token {
         TokensStore myStore = TokensStore.getInstance();
         myStore.add(this);
     }
-    
+
     private void removeFromStore() throws TokenManagementException {
         TokensStore myStore = TokensStore.getInstance();
         myStore.remove(this);
@@ -81,7 +79,7 @@ public class Token {
         String decodedToken = new String(decodedBytes);
         return decodedToken;
     }
-    
+
     /**
      * set Token as the decoded one that is found
      *
@@ -104,7 +102,7 @@ public class Token {
             return false;
         }
     }
-    
+
     /**
      * Returns a found token
      *
@@ -115,7 +113,7 @@ public class Token {
         Token tokenFound = myStore.find(decodedToken);
         return tokenFound;
     }
-    
+
     private void testIATEXP() {
         this.iat = 1584523340892l;
         if ((this.device.getValue().startsWith("5"))){
@@ -137,7 +135,7 @@ public class Token {
             throw new TokenManagementException("Error: Token Request Not Previously Registered");
         }
     }
-    
+
     /**
      * gets Token Request Emmission
      *
@@ -160,12 +158,12 @@ public class Token {
     public String getNotificationEmail() {
         return notificationEmail.getValue();
     }
-    
-    
+
+
     public String getTypeOfperation() {
         return operation.getValue();
     }
-    
+
     /**
      * decodes Token Value
      *
@@ -183,12 +181,17 @@ public class Token {
     public boolean isRevoked() {
         return this.revoked;
     }
-    
+
+    /**
+     * check if operation is correctly matched
+     *
+     * @throws TokenManagementException if device cannot execute the requested operation.
+     */
     public boolean isOperation(String deviceType) throws TokenManagementException{
         if (!(this.operation.getValue().equalsIgnoreCase("Check State")
                 || this.operation.getValue().equalsIgnoreCase("Send Information from " + deviceType)
                 || this.operation.getValue().equalsIgnoreCase("Send Request to " + deviceType))) {
-        	throw new TokenManagementException("The device represented by the token cannot execute the requested operation.");
+            throw new TokenManagementException("The device represented by the token cannot execute the requested operation.");
         }
         return true;
     }
@@ -218,7 +221,7 @@ public class Token {
     }
 
 
-    
+
     /**
      * get TokenValue as String
      *
@@ -234,11 +237,11 @@ public class Token {
     public void setSignature(String value) {
         this.signature = value;
     }
-    
+
     /**
      * set token to revoked
      *
-     * 
+     * @throws TokenManagementException if token previously revoked
      */
     public void setRevoked() throws TokenManagementException{
         if (this.isRevoked()){
@@ -249,8 +252,12 @@ public class Token {
             this.removeFromStore();
         }
     }
-    
-    
+
+    /**
+     * read operation file
+     *
+     * @throws TokenManagementException if token previously revoked
+     */
     public String readOperation(String InputFile) throws TokenManagementException{
         OperationParser myParser = new OperationParser();
         HashMap<String, String> items = myParser.parse(InputFile);
