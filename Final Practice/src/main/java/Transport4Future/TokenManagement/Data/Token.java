@@ -9,6 +9,8 @@ import java.util.HashMap;
 import Transport4Future.TokenManagement.Data.Attributes.Device;
 import Transport4Future.TokenManagement.Data.Attributes.EMail;
 import Transport4Future.TokenManagement.Data.Attributes.RequestDate;
+import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
+import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
 import Transport4Future.TokenManagement.IO.TokenParser;
 import Transport4Future.TokenManagement.Store.TokensRequestStore;
@@ -160,7 +162,7 @@ public class Token {
     }
     
     /**
-     * checks if token is valid
+     * decodes Token Value
      *
      * @throws TokenManagementException if any error occurs
      */
@@ -172,19 +174,7 @@ public class Token {
             return false;
         }
     }
-    
-    /**
-     * loads data from token found to current token, then check for token validity.
-     * @throws TokenManagementException if error occurs
-     */
-    public boolean loadTokenData(String decodedValue) throws TokenManagementException {
-        if (this.setDecoded(decodedValue)) {
-            return this.isValid();
-        } else {
-            return false;
-        }
-    }
-    
+
     public boolean isRevoked() {
         return this.revoked;
     }
@@ -217,6 +207,8 @@ public class Token {
     
     /**
      * get TokenValue as String
+     *
+     * 
      */
     public String getTokenValue() {
         String stringToEncode = this.getHeader() + this.getPayload() + this.getSignature();
@@ -230,9 +222,9 @@ public class Token {
     }
     
     /**
-     * set current token to revoked
+     * set token to revoked
      *
-     * @throws TokenManagementException if token has been revoked previously.
+     * 
      */
     public void setRevoked() throws TokenManagementException{
         if (this.isRevoked()){
@@ -244,18 +236,5 @@ public class Token {
         }
     }
 
-    /**
-     * check if tokenToVerify exists
-     *
-     * @throws TokenManagementException if token not exists.
-     */
-    public boolean checkTokenExistence(String tokenToVerify) throws TokenManagementException{
-        Token token = new Token();
-        String decodedValue = token.decodeTokenValue(tokenToVerify);
-        if (!token.loadTokenData(decodedValue)) {
-            throw new TokenManagementException("The token received does not exist or is not valid.");
-        }
-        return true;
-    }
 
 }

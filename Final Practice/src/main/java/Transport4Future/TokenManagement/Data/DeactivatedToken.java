@@ -1,56 +1,71 @@
 package Transport4Future.TokenManagement.Data;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 
+import Transport4Future.TokenManagement.TokenManager;
 import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
 import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
 import Transport4Future.TokenManagement.Data.Attributes.TokenValue;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
 import Transport4Future.TokenManagement.IO.RevocationParser;
+import Transport4Future.TokenManagement.Store.TokensRequestStore;
+import Transport4Future.TokenManagement.Store.TokensStore;
 import Transport4Future.TokenManagement.Store.DeactivatedTokensStore;
+import Transport4Future.Utils.SHA256Hasher;
 
 public class DeactivatedToken {
-    private Token revokedToken;
+	private Token revokedToken;
     private TypeOfRevocation revocationType;
     private RevocationReason revocationReason;
-    
+    //private String tokenValue;
     /**
-     * DeactivatedToken constructor
-     * @throws TokenManagementException if error occurs
+     * Token constructor
+     * @throws TokenManagementException 
+     *
+     * 
      */
     public DeactivatedToken (String FileName) throws TokenManagementException {
         RevocationParser myParser = new RevocationParser();
         HashMap<String, String> items = myParser.parse(FileName);
         TokenValue tokenValue = new TokenValue(items.get(RevocationParser.TOKEN_VALUE));
-
+        this.verifyDeactivatedToken(tokenValue.getValue());
         this.revokedToken = new Token();
-        this.revokedToken.checkTokenExistence(tokenValue.getValue());
-        this.checkPreviousRevocation(tokenValue.getValue());
         String decodedToken = this.revokedToken.decodeTokenValue(tokenValue.getValue());
-
         this.revokedToken = this.revokedToken.findToken(decodedToken);
         this.revokedToken.setRevoked();
-
         this.revocationType = new TypeOfRevocation(items.get(RevocationParser.TYPE_OF_REVOCATION));
         this.revocationReason = new RevocationReason(items.get(RevocationParser.REASON));
 
         store();
     }
 
-    private void checkPreviousRevocation(String tokenToVerify) throws TokenManagementException {
-        DeactivatedTokensStore myStore = DeactivatedTokensStore.getInstance();
+    public DeactivatedToken() {
+
+    }
+    
+    private void verifyDeactivatedToken(String tokenToVerify) throws TokenManagementException{
+    	DeactivatedTokensStore myStore = DeactivatedTokensStore.getInstance();
         if (myStore.find(tokenToVerify) != null) {
             throw new TokenManagementException("Error: Token previously revoked by this method.");
         }
+    	TokenManager myManager = TokenManager.getInstance();
+        if (!myManager.verifyToken(tokenToVerify)) {
+            throw new TokenManagementException("The token received does not exist.");
+        }
     }
+
 
     private void store() throws TokenManagementException {
         DeactivatedTokensStore myStore = DeactivatedTokensStore.getInstance();
         myStore.add(this);
     }
 
-
+    
     /**
      * Returns a found token
      *
@@ -61,8 +76,8 @@ public class DeactivatedToken {
         DeactivatedToken tokenFound = myStore.find(decodedToken);
         return tokenFound;
     }
-
-
+    
+    
     public Token getRevokedToken() {
         return this.revokedToken;
     }
@@ -70,7 +85,7 @@ public class DeactivatedToken {
     public String getTypeOfRevocation() {
         return this.revocationType.getValue();
     }
-
+    
     public String getRevocationReason() {
         return this.revocationReason.getValue();
     }
