@@ -100,27 +100,18 @@ public class TokenManager implements ITokenManagement {
      */
     public boolean executeAction(String InputFile) throws TokenManagementException {
         Token token = new Token();
-        OperationParser myParser = new OperationParser();
-        HashMap<String, String> items = myParser.parse(InputFile);
-        TokenValue tokenValue = new TokenValue(items.get(OperationParser.TOKEN_VALUE));
-        if (!this.verifyToken(tokenValue.getValue())) {
+        String tokenValue = token.readOperation(InputFile);
+        if (!this.verifyToken(tokenValue)){
             throw new TokenManagementException("The token received does not exist or is not valid.");
         }
-        String decodedToken = token.decodeTokenValue(tokenValue.getValue());
+        String decodedToken = token.decodeTokenValue(tokenValue);
         if (!token.setDecoded(decodedToken)) {
             return false;
         }
         
-        TokenRequest tokenR = token.getTokenRequestEmmision();
-        TypeOfOperation opType = new TypeOfOperation(items.get(OperationParser.TYPE_OF_OPERATION));
-
-        if (opType.getValue().equalsIgnoreCase("Check State")
-                || opType.getValue().equalsIgnoreCase("Send Information from " + tokenR.getTypeOfDevice())
-                || opType.getValue().equalsIgnoreCase("Send Request to " + tokenR.getTypeOfDevice())) {
-            return true;
-        } else {
-            throw new TokenManagementException("The device represented by the token cannot execute the requested operation.");
-        }
+        String deviceType = token.getTokenRequestEmmision().getTypeOfDevice();
+        return token.isOperation(deviceType);
+        
 
     }
 }

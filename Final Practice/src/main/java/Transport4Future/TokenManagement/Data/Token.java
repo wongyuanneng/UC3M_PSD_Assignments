@@ -11,7 +11,10 @@ import Transport4Future.TokenManagement.Data.Attributes.EMail;
 import Transport4Future.TokenManagement.Data.Attributes.RequestDate;
 import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
 import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
+import Transport4Future.TokenManagement.Data.Attributes.TokenValue;
+import Transport4Future.TokenManagement.Data.Attributes.TypeOfOperation;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
+import Transport4Future.TokenManagement.IO.OperationParser;
 import Transport4Future.TokenManagement.IO.TokenParser;
 import Transport4Future.TokenManagement.Store.TokensRequestStore;
 import Transport4Future.TokenManagement.Store.TokensStore;
@@ -27,6 +30,7 @@ public class Token {
     private long exp;
     private String signature;
     private boolean revoked;
+    private TypeOfOperation operation;
     //private String tokenValue;
     /**
      * Token constructor
@@ -83,10 +87,8 @@ public class Token {
      *
      * @throws TokenManagementException if any error occurs
      */
-    public boolean setDecoded (String decodedToken) throws TokenManagementException {
-        TokensStore myStore = TokensStore.getInstance();		
-        Token tokenFound = myStore.find(decodedToken);
-
+    public boolean setDecoded (String decodedToken) throws TokenManagementException {		
+        Token tokenFound = this.findToken(decodedToken);
         if (tokenFound != null) {
             this.alg = tokenFound.alg;
             this.typ = tokenFound.typ;
@@ -96,8 +98,6 @@ public class Token {
             this.iat = tokenFound.iat;
             this.exp = tokenFound.exp;
             this.signature = tokenFound.signature;
-            //this.tokenValue = tokenFound.tokenValue;
-            //this.setRevoked(tokenFound.revocationType, tokenFound.revocationReason);
             return true;
         }
         else{
@@ -161,6 +161,11 @@ public class Token {
         return notificationEmail.getValue();
     }
     
+    
+    public String getTypeOfperation() {
+        return operation.getValue();
+    }
+    
     /**
      * decodes Token Value
      *
@@ -177,6 +182,15 @@ public class Token {
 
     public boolean isRevoked() {
         return this.revoked;
+    }
+    
+    public boolean isOperation(String deviceType) throws TokenManagementException{
+        if (!(this.operation.getValue().equalsIgnoreCase("Check State")
+                || this.operation.getValue().equalsIgnoreCase("Send Information from " + deviceType)
+                || this.operation.getValue().equalsIgnoreCase("Send Request to " + deviceType))) {
+        	throw new TokenManagementException("The device represented by the token cannot execute the requested operation.");
+        }
+        return true;
     }
 
     public String getHeader () {
@@ -234,6 +248,15 @@ public class Token {
             this.revoked = true;
             this.removeFromStore();
         }
+    }
+    
+    
+    public String readOperation(String InputFile) throws TokenManagementException{
+        OperationParser myParser = new OperationParser();
+        HashMap<String, String> items = myParser.parse(InputFile);
+        TokenValue tokenValue = new TokenValue(items.get(OperationParser.TOKEN_VALUE));
+        this.operation = new TypeOfOperation(items.get(OperationParser.TYPE_OF_OPERATION));
+        return tokenValue.getValue();
     }
 
 

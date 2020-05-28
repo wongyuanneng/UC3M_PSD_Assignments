@@ -7,11 +7,11 @@ import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
+import Transport4Future.TokenManagement.StoreForTests;
 
 public class ExecuteActionTest {
     private TokenManager myManager;
-    private String t1;
-    private String t2;
+    private StoreForTests storeTokens;
 
     /**
      * ExecuteTokenTest Constructor
@@ -19,32 +19,12 @@ public class ExecuteActionTest {
      */
     public ExecuteActionTest() throws TokenManagementException{
         myManager = TokenManager.getInstance();
-        this.insertFirstToken();
-        this.insertSecondToken();
-        this.resetTokenStore();
+        storeTokens = new StoreForTests();
+        storeTokens.insertFirstToken();
+        storeTokens.insertSecondToken();
     }
 
-    private void resetTokenStore () throws TokenManagementException {
-        String storePath = System.getProperty("user.dir") + "/Store/tokenStore.json";
-        FileWriter fileWriter;
-        try {
-            fileWriter = new FileWriter(storePath);
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new TokenManagementException("Error: Unable to save a new token in the internal licenses store");
-        }		
-    }
 
-    private void insertFirstToken () throws TokenManagementException {
-        this.resetTokenStore();
-        String inputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/CorrectTokenRequest.json";
-        this.t1 = myManager.requestToken(inputFile);
-    }
-
-    private void insertSecondToken () throws TokenManagementException {
-        String inputFile = System.getProperty("user.dir") + "/TestData/TokenRequestTest/SecondCorrectTokenRequest.json";
-        this.t2 = myManager.requestToken(inputFile);		
-    }
 
     /*---------------------------------------------BV & EC--------------------------------------------------------------------------*/
 

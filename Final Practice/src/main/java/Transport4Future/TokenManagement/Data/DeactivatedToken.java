@@ -48,6 +48,10 @@ public class DeactivatedToken {
 
     }
     
+    private void alreadyRevoked() throws TokenManagementException{
+    	
+    }
+    
     private void verifyDeactivatedToken(String tokenToVerify) throws TokenManagementException{
     	DeactivatedTokensStore myStore = DeactivatedTokensStore.getInstance();
         if (myStore.find(tokenToVerify) != null) {
