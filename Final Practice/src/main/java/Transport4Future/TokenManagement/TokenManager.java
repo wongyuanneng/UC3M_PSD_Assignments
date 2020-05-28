@@ -1,17 +1,10 @@
 package Transport4Future.TokenManagement;
 
-import java.util.HashMap;
-
 import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Data.TokenRequest;
 import Transport4Future.TokenManagement.Data.DeactivatedToken;
-import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
-import Transport4Future.TokenManagement.Data.Attributes.TokenValue;
-import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
-import Transport4Future.TokenManagement.Data.Attributes.TypeOfOperation;
+import Transport4Future.TokenManagement.Data.Operation;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
-import Transport4Future.TokenManagement.IO.RevocationParser;
-import Transport4Future.TokenManagement.IO.OperationParser;
 
 public class TokenManager implements ITokenManagement {
 
@@ -73,13 +66,10 @@ public class TokenManager implements ITokenManagement {
      * @throws TokenManagementException if any error occurs
      */
     public boolean verifyToken(String TokenString) throws TokenManagementException {
-        Token token = new Token();
-        String decodedValue = token.decodeTokenValue(TokenString);
-        if (token.setDecoded(decodedValue)) {
-            return token.isValid();
-        } else {
-            return false;
-        }
+        //duplicated implementation that should be in Token.java, but not sure if we are allowed to remove it from TokenManager
+        Token token = new Token(); 
+        String decodedValue = token.decodeTokenValue(TokenString); 
+        return token.loadTokenData(decodedValue);
     }
     
     /**
@@ -99,28 +89,11 @@ public class TokenManager implements ITokenManagement {
      * @throws TokenManagementException if any error occurs
      */
     public boolean executeAction(String InputFile) throws TokenManagementException {
-        Token token = new Token();
-        OperationParser myParser = new OperationParser();
-        HashMap<String, String> items = myParser.parse(InputFile);
-        TokenValue tokenValue = new TokenValue(items.get(OperationParser.TOKEN_VALUE));
-        if (!this.verifyToken(tokenValue.getValue())) {
-            throw new TokenManagementException("The token received does not exist or is not valid.");
-        }
-        String decodedToken = token.decodeTokenValue(tokenValue.getValue());
-        if (!token.setDecoded(decodedToken)) {
+        Operation myOperation = new Operation(InputFile);
+        if (myOperation.getOperatingToken()==null) {
             return false;
         }
-        
-        TokenRequest tokenR = token.getTokenRequestEmmision();
-        TypeOfOperation opType = new TypeOfOperation(items.get(OperationParser.TYPE_OF_OPERATION));
-
-        if (opType.getValue().equalsIgnoreCase("Check State")
-                || opType.getValue().equalsIgnoreCase("Send Information from " + tokenR.getTypeOfDevice())
-                || opType.getValue().equalsIgnoreCase("Send Request to " + tokenR.getTypeOfDevice())) {
-            return true;
-        } else {
-            throw new TokenManagementException("The device represented by the token cannot execute the requested operation.");
-        }
-
+        TokenRequest tokenReq = myOperation.getOperatingToken().getTokenRequestEmmision();
+        return myOperation.checkOperation(tokenReq.getDeviceName());
     }
 }

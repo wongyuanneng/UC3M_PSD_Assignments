@@ -14,7 +14,11 @@ public class RevokeTokenTest {
     private TokenManager myManager;
     private String t1;
     private String t2;
-
+    
+    /**
+     * RevokeTokenTest constructor
+     * @throws TokenManagementException if error inserting tokens/resetting tokenStore
+     */
     public RevokeTokenTest() throws TokenManagementException {
         myManager = TokenManager.getInstance();
         this.insertFirstToken();

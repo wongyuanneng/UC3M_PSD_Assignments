@@ -9,19 +9,18 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Data.DeactivatedToken;
 import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
 
 public class DeactivatedTokensStore {
     private static DeactivatedTokensStore store;
     private List<DeactivatedToken> revokedTokensList;
-    
+
 
     private DeactivatedTokensStore() {
         this.load();
     }
-    
+
     /**
      * TokensStoreManager instantiation for Singleton implementation
      *
@@ -31,7 +30,7 @@ public class DeactivatedTokensStore {
         if (store == null) {
             store = new DeactivatedTokensStore();
         } else {
-//			System.out.println("There a Token Store object already created");
+            //			System.out.println("There a Token Store object already created");
         }
         return store;
     }
@@ -41,7 +40,7 @@ public class DeactivatedTokensStore {
         try {
             throw new CloneNotSupportedException();
         } catch (CloneNotSupportedException ex) {
-//			System.out.println("Token Store Object cannot be cloned");
+            //			System.out.println("Token Store Object cannot be cloned");
         }
         return null;
     }
@@ -60,7 +59,7 @@ public class DeactivatedTokensStore {
             this.revokedTokensList = new ArrayList<DeactivatedToken>();
         }
     }
-    
+
     /**
      * Add new deactivated token to Token Store
      *
@@ -68,7 +67,7 @@ public class DeactivatedTokensStore {
      */
     public void add(DeactivatedToken newToken) throws TokenManagementException {
         if (find(newToken.getRevokedToken().getHeader() + newToken.getRevokedToken().getPayload() + newToken.getRevokedToken().getSignature()) == null) {
-        	revokedTokensList.add(newToken);
+            revokedTokensList.add(newToken);
             this.save();
         }
     }

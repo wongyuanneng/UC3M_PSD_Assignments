@@ -5,9 +5,7 @@ import Transport4Future.TokenManagement.Exceptions.TokenManagementException;
 public class TypeOfOperation extends Attribute {
     /**
      * TypeOfOperation constructor
-     * @throws TokenManagementException 
-     *
-     * 
+     * @throws TokenManagementException if operation type is invalid
      */
     public TypeOfOperation(String Value) throws TokenManagementException {
         this.errorMessage = "Error: invalid type of operation.";
