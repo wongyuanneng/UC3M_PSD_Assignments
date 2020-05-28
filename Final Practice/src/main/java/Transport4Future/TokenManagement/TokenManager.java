@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import Transport4Future.TokenManagement.Data.Token;
 import Transport4Future.TokenManagement.Data.TokenRequest;
+import Transport4Future.TokenManagement.Data.DeactivatedToken;
 import Transport4Future.TokenManagement.Data.Attributes.RevocationReason;
 import Transport4Future.TokenManagement.Data.Attributes.TokenValue;
 import Transport4Future.TokenManagement.Data.Attributes.TypeOfRevocation;
@@ -87,22 +88,8 @@ public class TokenManager implements ITokenManagement {
      * @throws TokenManagementException if any error occurs
      */
     public String revokeToken(String InputFile) throws TokenManagementException {
-        RevocationParser myParser = new RevocationParser();
-        HashMap<String, String> items = myParser.parse(InputFile);
-        TokenValue tokenValue = new TokenValue(items.get(RevocationParser.TOKEN_VALUE));
-        if (!this.verifyToken(tokenValue.getValue())) {
-            throw new TokenManagementException("The token received does not exist.");
-        }
-        
-        Token token = new Token();
-        String decodedToken = token.decodeTokenValue(tokenValue.getValue());
-        token = token.findToken(decodedToken);
-
-        TypeOfRevocation revocationType = new TypeOfRevocation(items.get(RevocationParser.TYPE_OF_REVOCATION));
-        RevocationReason revocationReason = new RevocationReason(items.get(RevocationParser.REASON));
-        token.setRevoked(revocationType, revocationReason);
-
-        String email = token.getNotificationEmail();
+        DeactivatedToken myToken = new DeactivatedToken(InputFile);
+        String email = myToken.getRevokedToken().getNotificationEmail();
         return email;
     }
     

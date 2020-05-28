@@ -27,8 +27,6 @@ public class Token {
     private long exp;
     private String signature;
     private boolean revoked;
-    private TypeOfRevocation revocationType;
-    private RevocationReason revocationReason;
     //private String tokenValue;
     /**
      * Token constructor
@@ -62,6 +60,11 @@ public class Token {
     private void store() throws TokenManagementException {
         TokensStore myStore = TokensStore.getInstance();
         myStore.add(this);
+    }
+    
+    private void removeFromStore() throws TokenManagementException {
+        TokensStore myStore = TokensStore.getInstance();
+        myStore.remove(this);
     }
 
     /**
@@ -200,9 +203,7 @@ public class Token {
         return this.signature;
     }
 
-    //public String getTokenValue() {
-    //	return this.tokenValue;
-    //}	
+
     
     /**
      * get TokenValue as String
@@ -225,16 +226,14 @@ public class Token {
      *
      * 
      */
-    public void setRevoked(TypeOfRevocation type, RevocationReason reason) throws TokenManagementException{
+    public void setRevoked() throws TokenManagementException{
         if (this.isRevoked()){
             throw new TokenManagementException("Error: Token previously revoked by this method.");
         }
         else {
             this.revoked = true;
-            this.revocationType = type;
-            this.revocationReason = reason;
+            this.removeFromStore();
         }
-        store();
     }
 
 

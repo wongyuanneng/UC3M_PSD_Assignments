@@ -71,6 +71,19 @@ public class TokensStore {
             this.save();
         }
     }
+    
+    /**
+     * Removes a token from Token Store
+     *
+     * @throws TokenManagementException if any error occurs
+     */
+    public void remove(Token token) throws TokenManagementException {
+        if (find(token.getHeader() + token.getPayload() + token.getSignature()) != null) {
+            tokensList.remove(token);
+            this.save();
+        }
+    }
+    
 
     private void save() throws TokenManagementException {
         Gson gson = new Gson();
